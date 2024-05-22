@@ -47,16 +47,16 @@ function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const id = localStorage.getItem("id");
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("Please login for this functionality");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000); // 1-second delay
-      return;
-    }
     const fetchUserProfile = async () => {
+      const id = localStorage.getItem("id");
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Please login for this functionality");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000); // 1-second delay
+        return;
+      }
       try {
         // Define the API endpoint
         const apiUrl = "http://localhost:7000/user/getProfile";
@@ -80,6 +80,12 @@ function UserProfile() {
 
         // Parse response data
         const data = response.data;
+        if (data.message === "Invalid token") {
+          toast.error("Please Login Again");
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+        }
         if (data.message === "Token expired") {
           // localStorage.removeItem("token");
           // localStorage.removeItem("user_type");

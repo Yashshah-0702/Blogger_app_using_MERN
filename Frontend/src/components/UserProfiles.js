@@ -11,9 +11,7 @@ const UserProfiles = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const token = localStorage.getItem("token") ;
-        // const user_type = localStorage.getItem("user_type");
-        // const id = localStorage.getItem("id");
+        const token = localStorage.getItem("token");
 
         if (!token) {
           toast.error("Please login for this functionality");
@@ -32,14 +30,20 @@ const UserProfiles = () => {
             },
           }
         );
+
+        if (response.data.message === "Invalid token") {
+          toast.error("Please Login Again");
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+        }
+
         if (response.data.message === "Token expired") {
-          // localStorage.removeItem("token");
-          // localStorage.removeItem("user_type");
-          // localStorage.removeItem("id");
           toast.error("Session expired. Please login again.");
           setTimeout(() => {
             navigate("/login");
           }, 1200);
+          return;
         }
 
         setProfiles(response.data.data); // Set profiles state
@@ -49,16 +53,14 @@ const UserProfiles = () => {
     };
 
     fetchProfiles();
-  }, []);
+  }, [navigate]);
 
   return (
     <>
       <div>
-        <h1>User Profiles :-</h1> <br></br>
-        {/* {userId && <p>User ID: {userId}</p>}
-      {userType && <p>User Type: {userType}</p>} */}
-        {profiles.length > 0 ? (
-          <table className=" p-2 text-center table table-hover">
+        <h1>User Profiles :-</h1> <br />
+        {profiles && profiles.length > 0 ? (
+          <table className="p-2 text-center table table-hover">
             <thead>
               <tr>
                 <th>Sr.NO.</th>
@@ -75,7 +77,6 @@ const UserProfiles = () => {
                   <td>{index + 1}</td>
                   <td>{profile._id}</td>
                   <td>{profile.first_name + " " + profile.last_name}</td>
-                  {/* <td>{profile.last_name}</td> */}
                   <td>{profile.email}</td>
                   <td>
                     {profile.user_type === 2 ? "User" : profile.user_type}
