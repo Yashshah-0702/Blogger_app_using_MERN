@@ -11,6 +11,7 @@ const Signup = () => {
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -42,6 +43,10 @@ const Signup = () => {
     } catch (err) {
       toast.error("Signup failed. Please try again.");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -96,14 +101,25 @@ const Signup = () => {
           </div>
           <div className="mb-3">
             <label className="form-label">Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="form-control"
-              required
-            />
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="form-control"
+                required
+              />
+              <div className="input-group-append">
+                <button
+                  type="button"
+                  className="btn btn-outline-primary"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+            </div>
           </div>
           <div className="mb-3">
             <label className="form-label">Bio/About Yourself (optional):</label>

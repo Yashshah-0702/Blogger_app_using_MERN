@@ -10,6 +10,8 @@ import UserProfiles from "./components/UserProfiles";
 import UserProfile from "./components/UserProfile";
 import Navbar from "./components/Navbar";
 import UpdateProfile from "./components/UpdateProfile";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 const App = () => {
   const [usertype, setUserType] = useState("");
@@ -17,7 +19,7 @@ const App = () => {
     const user_type = localStorage.getItem("user_type");
     setUserType(user_type);
   }, []);
-  
+
   return (
     <BrowserRouter>
       <Navbar user_type={usertype} /> <br></br> <br></br>
@@ -29,6 +31,8 @@ const App = () => {
         <Route path="/signup/user" element={<Signup />} />
         <Route path="/signup/admin" element={<AdminSignup />} />
         <Route path="/updateProfile" element={<UpdateProfile />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>

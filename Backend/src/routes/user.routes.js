@@ -8,8 +8,12 @@ const {
   updateProfile,
   deleteProfile,
   forgotPassword,
+  resetPassword,
 } = require("../controller/user.controller");
-const isAuthenticated = require("../middleware/authentication.middelware");
+const {
+  verifyResetToken,
+  isAuthenticated,
+} = require("../middleware/authentication.middelware");
 
 module.exports = () => {
   router.get("/getprofiles", isAuthenticated, getProfiles);
@@ -19,7 +23,7 @@ module.exports = () => {
   router.patch("/updateProfile", isAuthenticated, updateProfile);
   router.delete("/deleteProfile", isAuthenticated, deleteProfile);
   router.post("/forgotPassword", forgotPassword);
-  router.post("/resetPassword");
+  router.post("/resetPassword", verifyResetToken, resetPassword);
 
   return router;
 };

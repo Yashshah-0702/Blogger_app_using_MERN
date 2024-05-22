@@ -8,7 +8,7 @@ const {
   updateCertificate,
   deleteCertificate,
 } = require("../controller/certificate.controller");
-const isAuthenticated = require("../middleware/authentication.middelware");
+const {isAuthenticated} = require("../middleware/authentication.middelware");
 
 module.exports = () => {
   router.post(

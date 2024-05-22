@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +48,10 @@ const Login = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="container">
       {" "}
@@ -66,18 +71,36 @@ const Login = () => {
           </div>
           <div className="mb-3">
             <label className="form-label">Password:</label>
-            <input
-              type="password"
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              visibility="hidden"
-            />
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                visibility="hidden"
+              />
+              <div className="input-group-append">
+                <button
+                  type="button"
+                  className="btn btn-outline-primary"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <br></br>
         <div className="text-center">
+          <p>
+            {" "}
+            Don't remember your password ? then{" "}
+            <span>
+              <NavLink to="/forgotPassword"> Forgot Password </NavLink>
+            </span>
+          </p>{" "}
           <button className="btn btn-outline-primary btn-lg" type="submit">
             Login
           </button>
@@ -87,7 +110,8 @@ const Login = () => {
             <span>
               <NavLink to="/signup/user">Sign-up</NavLink>
             </span>
-          </p>
+          </p>{" "}
+          <br></br>
         </div>
       </form>
       <ToastContainer />

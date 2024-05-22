@@ -1,6 +1,5 @@
 const User = require("../models/user.model");
 const crypto = require("crypto");
-const { sendPasswordToEmail } = require("../utils");
 const emailQueue = require("../utils/emailQueue.utils");
 const { success, failure } = require("../utils/response.utils");
 const { httpsStatusCodes, serverResponseMessage } = require("../constants/");
@@ -228,6 +227,7 @@ exports.deleteProfile = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
+    const secretCode = crypto.randomBytes(3).toString("hex");
     const userEmail = await User.findOne({ email });
     if (!userEmail) {
       return failure(
@@ -237,13 +237,27 @@ exports.forgotPassword = async (req, res) => {
       );
     }
     subject = "Password Reset";
-    text = `<p>You are requested to reset the password </p> <br> 
-    <p> Click <a href="http://192.168.10.79:3000/resetPassword">here</a> to reset the password.... </p>`;
+    text = `<p>You are requested to reset the password </p> 
+    <p> Your secret code is: ${secretCode} </p> 
+    <p> If you did not request a password reset, please ignore this email. </p>`;
     await emailQueue.add({ email, subject, text });
+    const token = jwt.sign(
+      {
+        email: userEmail.email,
+        id: userEmail._id,
+        user_type: userEmail.user_type,
+        secretCode,
+      },
+      jwtConfig.resetPasswordSecret,
+      {
+        expiresIn: jwtConfig.resetPasswordTokenExpiration,
+      }
+    );
     return success(
       res,
       httpsStatusCodes.SUCCESS,
-      serverResponseMessage.RESET_PASSWORD_LINK_SENT
+      serverResponseMessage.RESET_PASSWORD_LINK_SENT,
+      token
     );
   } catch (error) {
     return failure(
@@ -256,10 +270,39 @@ exports.forgotPassword = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   try {
-    const { password } = req.body;
+    const { user } = req;
+    const { userDetails } = user;
+    const { secretCode, password, confirmPassword } = req.body;
+    if (!secretCode || secretCode !== user.secretCode) {
+      return failure(
+        res,
+        httpsStatusCodes.BAD_REQUEST,
+        serverResponseMessage.INVALID_SECRET_CODE
+      );
+    }
+    if (password !== confirmPassword) {
+      return failure(
+        res,
+        httpsStatusCodes.BAD_REQUEST,
+        serverResponseMessage.PASSWORD_NOT_MATCHED
+      );
+    }
+    const encryptPassword = await bcrypt.hash(password, 10);
+    const data = { password: encryptPassword };
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userDetails._id },
+      { $set: data },
+      { new: true }
+    );
 
-    
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.PASSWORD_UPDATED_SUCCESSFULLY,
+      updatedUser
+    );
   } catch (error) {
+    console.log(error);
     return failure(
       res,
       httpsStatusCodes.INTERNAL_SERVER_ERROR,

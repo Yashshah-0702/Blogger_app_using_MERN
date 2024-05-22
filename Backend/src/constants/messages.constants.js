@@ -9,7 +9,11 @@ const serverResponseMessage = {
   PROFILE_FETCHED_SUUCESSFULLY: "Profile fetched successfully",
   LOGIN_SUCCESSFULL: "Login successfull",
   PROFILE_DELETED_SUCCESSFULLY: "Profile deleted successfully",
-  RESET_PASSWORD_LINK_SENT:"Reset password link sent to your email",
+  RESET_PASSWORD_LINK_SENT: "Reset password link sent to your email",
+  PASSWORD_NOT_MATCHED: "Password not matched",
+  TOKEN_MISSING: "Token missing",
+  PASSWORD_UPDATED_SUCCESSFULLY: "Password updated successfully",
+  INVALID_SECRET_CODE: "Invalid secret code",
 
   /* Certificate */
   CERTIFICATE_CREATED_SUCCESSFULLY: "Certificate created successfully",

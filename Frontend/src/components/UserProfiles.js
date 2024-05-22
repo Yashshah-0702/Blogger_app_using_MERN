@@ -11,7 +11,7 @@ const UserProfiles = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token") ;
         // const user_type = localStorage.getItem("user_type");
         // const id = localStorage.getItem("id");
 
