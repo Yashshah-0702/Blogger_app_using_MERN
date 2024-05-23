@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function Navbar({ user_type }) {
+export default function Navbar({ name }) {
   const userType = localStorage.getItem("user_type");
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("name")
     toast.success("Logged out successfully");
     setTimeout(() => {
       window.location.href = "/login";
@@ -40,10 +41,7 @@ export default function Navbar({ user_type }) {
             </li>
             {userType === "1" && (
               <li className="nav-item h4">
-                <Link
-                  className="nav-link "
-                  to="/userProfiles"
-                >
+                <Link className="nav-link " to="/userProfiles">
                   User Lists
                 </Link>
               </li>
@@ -82,7 +80,7 @@ export default function Navbar({ user_type }) {
             <li className="nav-item h4">
               <Link className="nav-link" to="/userProfile">
                 <span className="bg-light rounded-circle">🙎🏻‍♂️</span>
-                View Profile
+                {"  "}{name ? name : " Your Profile"}
               </Link>
             </li>
           </ul>

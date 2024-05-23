@@ -20,17 +20,19 @@ const Login = () => {
       if (response.data.message === "Invalid credentials") {
         toast.error("Invalid credentials");
       } else {
-        const { token, user_type, id } = response.data.data;
+        const { token, user_type, id ,name } = response.data.data;
 
         // Store the token, user_type, and id in localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("user_type", user_type);
         localStorage.setItem("id", id);
+        localStorage.setItem("name" , name)
 
         // Configure Axios to include these values in headers for future requests
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios.defaults.headers.common["User-Type"] = user_type;
         axios.defaults.headers.common["User-Id"] = id;
+        axios.defaults.headers.common["Name"] = name;
 
         toast.success("Login successful");
 

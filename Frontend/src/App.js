@@ -14,15 +14,16 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 
 const App = () => {
-  const [usertype, setUserType] = useState("");
+  const [userName, setUserName] = useState("");
   useEffect(() => {
-    const user_type = localStorage.getItem("user_type");
-    setUserType(user_type);
+    // const user_type = localStorage.getItem("user_type");
+    const name = localStorage.getItem("name");
+    setUserName(name);
   }, []);
 
   return (
     <BrowserRouter>
-      <Navbar user_type={usertype} /> <br></br> <br></br>
+      <Navbar name={userName} /> <br></br> <br></br>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/userProfiles" element={<UserProfiles />} />

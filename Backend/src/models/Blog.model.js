@@ -11,6 +11,10 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
+  imageUrl: {
+    type: String,
+    required: false,
+  },
   author: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -21,3 +25,5 @@ const blogSchema = new Schema({
     required: true,
   },
 });
+
+module.exports = mongoose.model("Blog", blogSchema);
