@@ -22,6 +22,12 @@ const serverResponseMessage = {
   CERTIFICATE_DELETED_SUCCESSFULLY: "Certificate deleted successfully",
   CERTIFICATE_NOT_FOUND: "Certificate not found",
   ACCESS_DENIED: "Access denied",
+
+  /* Blog */
+  BLOGS_FETCHED_SUUCESSFULLY: "Blogs fetched successfully",
+  BLOG_NOT_FOUND: "Blog not found",
+  BLOG_FETCHED_SUUCESSFULLY: "Blog fetched successfully",
+
   /* Catch Error */
   INTERNAL_SERVER_ERROR: "Internal Server Error",
   TOKEN_EXPIRED: "Token expired",
