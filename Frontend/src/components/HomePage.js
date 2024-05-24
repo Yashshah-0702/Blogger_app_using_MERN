@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -10,9 +11,12 @@ export default function HomePage() {
           </h1>
         </div>
         <div className="text-lg-right text-center m-3">
-          <button className="btn btn btn-outline-primary btn-lg">
+          <NavLink
+            to="/createBlog"
+            className="btn btn btn-outline-primary btn-lg"
+          >
             Create a Blog ✍️
-          </button>{" "}
+          </NavLink>{" "}
           {"  "}
           <button className="btn btn btn-outline-primary btn-lg">
             Create a Post 📝

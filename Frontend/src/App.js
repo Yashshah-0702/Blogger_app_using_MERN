@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import UpdateProfile from "./components/UpdateProfile";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import CreateBlog from "./components/CreateBlog";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/updateProfile" element={<UpdateProfile />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/createBlog" element={<CreateBlog />} />
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>

@@ -27,6 +27,7 @@ const serverResponseMessage = {
   BLOGS_FETCHED_SUUCESSFULLY: "Blogs fetched successfully",
   BLOG_NOT_FOUND: "Blog not found",
   BLOG_FETCHED_SUUCESSFULLY: "Blog fetched successfully",
+  BLOG_CREATED_SUCCESSFULLY: "Blog created successfully",
 
   /* Catch Error */
   INTERNAL_SERVER_ERROR: "Internal Server Error",
