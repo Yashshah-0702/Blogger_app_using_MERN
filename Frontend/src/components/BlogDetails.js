@@ -6,7 +6,29 @@ import { toast, ToastContainer } from "react-toastify";
 
 function BlogDetails() {
   const [blogDetails, setBlogDetails] = useState(null);
-  const [error, setError] = useState("");
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+
+    const getDayWithSuffix = (day) => {
+      if (day > 3 && day < 21) return `${day}th`;
+      switch (day % 10) {
+        case 1:
+          return `${day}st`;
+        case 2:
+          return `${day}nd`;
+        case 3:
+          return `${day}rd`;
+        default:
+          return `${day}th`;
+      }
+    };
+
+    return `${getDayWithSuffix(day)} ${month} ${year}`;
+  };
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
@@ -14,7 +36,6 @@ function BlogDetails() {
         // Retrieve blogId from localStorage
         const blogId = localStorage.getItem("selectedBlogId");
         if (!blogId) {
-          setError("No blog ID found");
           return;
         }
 
@@ -25,11 +46,11 @@ function BlogDetails() {
             _id: blogId,
           }
         );
-        console.log(response.data);
+        // console.log(response.data);
+        toast.success(response.data.message);
         setBlogDetails(response.data.data);
-        return toast.success(response.data.message);
       } catch (error) {
-        setError("Error fetching blog details");
+       toast.error("server error")
       }
     };
 
@@ -37,14 +58,19 @@ function BlogDetails() {
   }, []);
 
   return (
-    <div>
-      <h2>Blog Details</h2>
-      {error && <p>{error}</p>}
+    <div className="container">
+      <br></br>
+      <h2 className="h2 text-center">Blog Details</h2>
       {blogDetails && (
-        <div key={blogDetails._id}>
+        <div className="card shadow p-4 mt-5 mb-4" key={blogDetails._id}>
+          <img
+            src={blogDetails.blogUrl}
+            alt={blogDetails.title}
+            style={{ width: "50%", height: "50%" }}
+          />
           <h3>{blogDetails.title}</h3>
-          <p>{blogDetails.content}</p>
-          <img src={blogDetails.blogUrl} alt={blogDetails.title} />
+          <p  className="text-muted">{blogDetails.content}</p>
+
           {/* Render other details as needed */}
         </div>
       )}

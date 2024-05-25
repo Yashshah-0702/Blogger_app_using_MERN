@@ -16,7 +16,7 @@ export default function Navbar({ name }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark opacity-40 bg-primary  fw-bold">
+    <nav className="navbar navbar-expand-lg navbar-dark opacity-40 bg-dark bg-gradient fw-bold">
       <div className="container-fluid px-5">
         <Link className="navbar-brand" to="/">
           <h1 className="h1">Blogging</h1>
