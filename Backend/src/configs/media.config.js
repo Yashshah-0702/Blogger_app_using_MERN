@@ -9,7 +9,7 @@ const mediaConfig = {
   main_upload_dir: "/public/uploads",
 
   imageUpload: {
-    ImagePath: "certificate/",
+    ImagePath: "blogs/",
   },
 };
 

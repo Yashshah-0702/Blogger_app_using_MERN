@@ -41,6 +41,14 @@ export default function CreateBlog() {
           },
         }
       );
+      if (response.data.message === "Token expired") {
+        toast.error("Session Expired. Please login again.");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+        return;
+      }
+
       toast.success(response.data.message);
       setTimeout(() => {
         navigate("/");
@@ -81,12 +89,21 @@ export default function CreateBlog() {
               required
             ></textarea>
           </div>
-          <div>
-            <label>Image</label>
-            <input type="file" onChange={handleImageChange} required />
+          <div className="mb-3 mt-3">
+            <label className="form-label">Image</label>
+            <input
+              className="form-control"
+              type="file"
+              onChange={handleImageChange}
+              required
+            />
           </div>
         </div>
-        <button type="submit">Submit</button>
+        <div className="text-center">
+          <button className="btn btn-outline-primary btn-lg" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
       <ToastContainer />
     </div>

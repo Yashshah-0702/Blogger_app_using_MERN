@@ -8,7 +8,7 @@ export default function Navbar({ name }) {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("name")
+    localStorage.removeItem("name");
     toast.success("Logged out successfully");
     setTimeout(() => {
       window.location.href = "/login";
@@ -39,10 +39,21 @@ export default function Navbar({ name }) {
                 All Blogs
               </Link>
             </li>
-            {userType === "1" && (
-              <li className="nav-item h4">
-                <Link className="nav-link " to="/userProfiles">
+            <li className="nav-item h4">
+              {userType === "1" ? (
+                <Link className="nav-link" to="/userProfiles">
                   User Lists
+                </Link>
+              ) : (
+                <Link className="nav-link" to="/myBlogs">
+                  My Blogs
+                </Link>
+              )}
+            </li>
+            {userType === "2" && (
+              <li className="nav-item h4">
+                <Link className="nav-link" to="/createBlog">
+                  Create Blog
                 </Link>
               </li>
             )}
@@ -80,7 +91,8 @@ export default function Navbar({ name }) {
             <li className="nav-item h4">
               <Link className="nav-link" to="/userProfile">
                 <span className="bg-light rounded-circle">🙎🏻‍♂️</span>
-                {"  "}{name ? name : " Your Profile"}
+                {"  "}
+                {name ? name : " Your Profile"}
               </Link>
             </li>
           </ul>

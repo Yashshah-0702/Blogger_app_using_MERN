@@ -68,7 +68,10 @@ exports.createBlog = async (req, res) => {
   try {
     const { user } = req;
     console.log(user);
-    const blogPath = req.media_details.file_path + req.media_details.name;
+    const blogPath =
+      `http://localhost:7000` +
+      req.media_details.file_path +
+      req.media_details.name;
     const author = await User.findOne({ _id: user.id });
     const date = new Date();
     const data = {
@@ -76,6 +79,7 @@ exports.createBlog = async (req, res) => {
       author: author.first_name + " " + author.last_name,
       blogUrl: blogPath,
       Publication_date: date,
+      created_by: user.id,
     };
     console.log(data);
     const response = await Blog.create(data);
@@ -87,6 +91,25 @@ exports.createBlog = async (req, res) => {
     );
   } catch (error) {
     console.log(error);
+    return failure(
+      res,
+      httpsStatusCodes.INTERNAL_SERVER_ERROR,
+      serverResponseMessage.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
+exports.getMyBlogs = async (req, res) => {
+  try {
+    const { user } = req;
+    const response = await Blog.find({ created_by: user.id });
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.BLOGS_FETCHED_SUUCESSFULLY,
+      response
+    );
+  } catch (error) {
     return failure(
       res,
       httpsStatusCodes.INTERNAL_SERVER_ERROR,
