@@ -20,13 +20,13 @@ const Login = () => {
       if (response.data.message === "Invalid credentials") {
         toast.error("Invalid credentials");
       } else {
-        const { token, user_type, id ,name } = response.data.data;
+        const { token, user_type, id, name } = response.data.data;
 
         // Store the token, user_type, and id in localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("user_type", user_type);
         localStorage.setItem("id", id);
-        localStorage.setItem("name" , name)
+        localStorage.setItem("name", name);
 
         // Configure Axios to include these values in headers for future requests
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -58,9 +58,10 @@ const Login = () => {
     <div className="container">
       {" "}
       <br></br>
-      <h2 className="h2 text-center">Login into blogging World:-</h2>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-5 mb-4">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="bg-dark text-light py-3 rounded-3 h2 text-center">Login into blogging World:-</h2>
+          <br></br><br></br>
           <div className="mb-3">
             <label className="form-label">Email:</label>
             <input
@@ -103,7 +104,7 @@ const Login = () => {
               <NavLink to="/forgotPassword"> Forgot Password </NavLink>
             </span>
           </p>{" "}
-          <button className="btn btn-outline-primary btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-lg" type="submit">
             Login
           </button>
           <br></br> <br></br>

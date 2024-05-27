@@ -60,19 +60,19 @@ const UpdateProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(formData.first_name.length < 3 || formData.first_name.length > 20){
+    if (formData.first_name.length < 3 || formData.first_name.length > 20) {
       toast.error("First Name must be between 3 and 20 characters.");
       return;
     }
-    if(formData.last_name.length < 3 || formData.last_name.length > 20){
+    if (formData.last_name.length < 3 || formData.last_name.length > 20) {
       toast.error("Last Name must be between 3 and 20 characters.");
       return;
     }
-    if(formData.user_name.length < 3 || formData.user_name.length > 20){
+    if (formData.user_name.length < 3 || formData.user_name.length > 20) {
       toast.error("User Name must be between 3 and 20 characters.");
       return;
     }
-    if(formData.email.length < 3 || formData.email > 50){
+    if (formData.email.length < 3 || formData.email > 50) {
       toast.error("Email must be between 3 and 50 characters.");
       return;
     }
@@ -123,9 +123,9 @@ const UpdateProfile = () => {
   return (
     <div className="container">
       <br></br>
-      <h2 className="h2 text-center">Update Profile</h2>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-5 mb-4">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="bg-dark text-light py-3 rounded-3 text-center">Update Profile</h2>
           <div className="mb-3 mt-3">
             <label className="form-label">Email:</label>
             <input
@@ -182,8 +182,8 @@ const UpdateProfile = () => {
             />
           </div>
         </div>
-        <div className="text-center">
-          <button className="btn btn-outline-primary btn-lg" type="submit">
+        <div className="text-center mb-5">
+          <button className="btn btn-outline-dark btn-lg" type="submit">
             Update Profile
           </button>
         </div>

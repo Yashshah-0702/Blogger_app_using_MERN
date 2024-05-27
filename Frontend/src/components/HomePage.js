@@ -88,10 +88,9 @@ export default function HomePage() {
                 .reverse()
                 .map((blog) => (
                   <div
-                    className="row bg-gradient border-bottom rounded-3"
-                    style={{ backgroundColor: "#f0f0f0" }}
+                    className="row bg-gradient border-bottom rounded-3 bg-body shadow mt-3 m-2"
                   >
-                    <div className="col-md-4 col-lg-4 col-sm-12 p-5 border-end border-light">
+                    <div className="col-md-4 col-lg-4 col-sm-12 p-lg-5 p-sm-2 ">
                       <img
                         src={blog.blogUrl}
                         alt={blog.title}

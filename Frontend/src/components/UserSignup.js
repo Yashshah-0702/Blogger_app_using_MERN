@@ -20,7 +20,7 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (firstName.length < 2|| firstName.length > 20) {
+    if (firstName.length < 2 || firstName.length > 20) {
       toast.error("First Name must be between 2 and 20 characters.");
       return;
     }
@@ -78,9 +78,10 @@ const Signup = () => {
   return (
     <div className="container">
       <br></br>
-      <h2 className="h2 text-center"> Create a blogging profile :-</h2>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-5 mb-4">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="bg-dark text-light py-3 rounded-3 text-center"> Create a blogging profile :-</h2>
+          <br></br> <br></br>
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
             <input

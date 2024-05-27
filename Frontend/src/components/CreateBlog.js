@@ -89,10 +89,13 @@ export default function CreateBlog() {
   return (
     <div className="container">
       <br></br>
-      <h1 className="h2 text-center">Create a Blog</h1>
-      <p className="text-center">Turn your thoughts into blogs</p>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-5 mb-4 ">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4 ">
+          <div className="text-center rounded-3 py-2 text-light bg-dark">
+            <h1>Create Blog</h1>
+            <p>Turn your thoughts into blogs</p>
+          </div>
+          <br></br><br></br>
           <div className="mb-3 mt-3">
             <label className="form-label">Title</label>
             <input
@@ -125,8 +128,8 @@ export default function CreateBlog() {
             />
           </div>
         </div>
-        <div className="text-center">
-          <button className="btn btn-outline-primary btn-lg" type="submit">
+        <div className="text-center mb-5">
+          <button className="btn btn-outline-dark btn-lg" type="submit">
             Submit
           </button>
         </div>

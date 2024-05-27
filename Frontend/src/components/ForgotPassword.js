@@ -39,9 +39,13 @@ const ForgotPassword = () => {
     <div className="container">
       {" "}
       <br></br>
-      <h2 className="h2 text-center">Forgot Password</h2>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-5 mb-4">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="bg-dark text-light rounded-3 py-3 text-center ">
+            Forgot Password
+          </h2>
+          <br></br>
+          <br></br>
           <div className="mb-3">
             <label className="form-label">Email:</label>
             <input
@@ -56,7 +60,7 @@ const ForgotPassword = () => {
         <br></br>
         <div className="text-center">
           <button
-            className="btn btn-outline-primary btn-lg"
+            className="btn btn-outline-dark btn-lg"
             type="submit"
             style={{ padding: "0.5em 1em" }}
           >

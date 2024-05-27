@@ -14,19 +14,19 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(firstName.length < 2 || firstName.length > 20){
+    if (firstName.length < 2 || firstName.length > 20) {
       toast.error("First Name must be between 2 and 20 characters.");
       return;
     }
-    if(lastName.length < 2 || lastName.length > 20){
+    if (lastName.length < 2 || lastName.length > 20) {
       toast.error("Last Name must be between 2 and 20 characters.");
       return;
     }
-    if(userName.length < 3 || userName.length > 20){
+    if (userName.length < 3 || userName.length > 20) {
       toast.error("User Name must be between 3 and 20 characters.");
       return;
     }
-    if(email.length < 3 || email.length > 50){
+    if (email.length < 3 || email.length > 50) {
       toast.error("Email must be between 3 and 50 characters.");
       return;
     }
@@ -58,9 +58,13 @@ const Signup = () => {
   return (
     <div className="container">
       <br></br>
-      <h2 className="h2 text-center"> Create a Admin profile :-</h2>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-5 mb-4">
+      <form  onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className=" bg-dark text-light py-3 text-center rounded-3">
+            {" "}
+            Create a Admin profile :-
+          </h2>
+          <br></br> <br></br>
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
             <input
@@ -119,7 +123,7 @@ const Signup = () => {
         </div>
         <br></br>
         <div className="text-center">
-          <button className="btn btn-outline-primary btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-lg" type="submit">
             Signup
           </button>
           <br></br>

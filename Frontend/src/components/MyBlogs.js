@@ -73,7 +73,7 @@ const BlogList = () => {
   }, []);
 
   return (
-    <div className="mx-lg-5">
+    <div className="px-lg-5">
       {/* <br></br> */}
       {blogs && blogs.length > 0 ? (
         <>
@@ -84,11 +84,11 @@ const BlogList = () => {
           <div className="">
             {blogs.map((blog) => (
               <div
-                className="row bg-gradient border-bottom rounded-3"
-                style={{ backgroundColor: "#f0f0f0" }}
+                className="row bg-gradient border-bottom rounded-3 bg-body shadow mt-3 m-2"
+                // style={{ backgroundColor: "#f0f0f0" }}
                 key={blog._id}
               >
-                <div className="col-md-4 col-lg-4 col-sm-12 p-5 border-end border-light">
+                <div className="col-md-4 col-lg-4 col-sm-12 p-lg-5 p-sm-2">
                   <img
                     src={blog.blogUrl}
                     alt={blog.title}
@@ -129,7 +129,7 @@ const BlogList = () => {
                   <br></br>
                   <p className="card-text">
                     Author:-
-                    <small className="text-dark">{blog.author}</small>
+                    <small className="text-dark text-decoration-underline">{blog.author}</small>
                   </p>
                   <p className="card-text">
                     Publication Date:-

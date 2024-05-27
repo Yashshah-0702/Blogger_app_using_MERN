@@ -60,34 +60,36 @@ function BlogDetails() {
   return (
     <div className="container">
       <br></br>
-      <h2 className="h2 text-center">Blog Details</h2>
+      {/* <h2 className="h2 text-center">Blog Details</h2> */}
       {blogDetails && (
-        <div className="card shadow p-4 mt-5 mb-4" key={blogDetails._id}>
-          <img
-            src={blogDetails.blogUrl}
-            alt={blogDetails.title}
-            style={{ width: "50%", height: "50%" }}
-          />
-          <br></br>
-          <div className="m-5 card-body">
-            <h3>{blogDetails.title}</h3>
+          <div className="card shadow p-4 mt-5 mb-4" key={blogDetails._id}>
+            <img
+              src={blogDetails.blogUrl}
+              alt={blogDetails.title}
+              style={{ width: "100%", height: "50%" }}
+            />
             <br></br>
-            <h5 className="h5 text-muted">{blogDetails.content}</h5>
-            <br></br>
-            <p className=" card-text">
-              Author:-
-              <small className="text-muted">{blogDetails.author}</small>
-            </p>
-            <p className=" card-text">
-              Publication Date:-
-              <small className="text-muted">
-                {formatDate(blogDetails.Publication_date)}
-              </small>
-            </p>
-          </div>
+            <div className="m-lg-5 card-body">
+              <h3 className="d-lg-visible">{blogDetails.title}</h3>
+              <br></br>
+              <h5 className="h5 text-muted">{blogDetails.content}</h5>
+              <br></br>
+              <p className=" card-text">
+                Author:-
+                <small className="text-muted text-decoration-underline">
+                  {blogDetails.author}
+                </small>
+              </p>
+              <p className=" card-text">
+                Publication Date:-
+                <small className="text-muted">
+                  {formatDate(blogDetails.Publication_date)}
+                </small>
+              </p>
+            </div>
 
-          {/* Render other details as needed */}
-        </div>
+            {/* Render other details as needed */}
+          </div>
       )}
       <ToastContainer />
     </div>

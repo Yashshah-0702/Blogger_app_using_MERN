@@ -79,9 +79,10 @@ const ResetPassword = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center">Reset Password</h2>
-      <form className="p-4 mb-4" onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-4 mb-4">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="bg-dark text-light py-3 text-center rounded-3">Reset Password</h2>
+          <br></br> <br></br>
           <div className="mb-3">
             <label className="form-label">Secret Code:</label>
             <input
