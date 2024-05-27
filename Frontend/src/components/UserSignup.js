@@ -140,7 +140,7 @@ const Signup = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-primary"
+                  className="btn btn-outline-dark"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? "Hide" : "Show"}
@@ -161,7 +161,7 @@ const Signup = () => {
         </div>
         <br></br>
         <div className="text-center">
-          <button className="btn btn-outline-primary btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-lg" type="submit">
             Signup
           </button>
           <br></br> <br></br>

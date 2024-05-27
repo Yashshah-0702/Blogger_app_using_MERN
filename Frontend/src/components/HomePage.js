@@ -77,7 +77,7 @@ export default function HomePage() {
       <div className="">
         {blogs && blogs.length > 0 ? (
           <>
-            <h5 className="text-center display-6 bg-dark bg-gradient text-light">
+            <h5 className="text-center display-6 bg-dark bg-gradient rounded-3 text-light mx-1">
               Latest Blogs ✍️
             </h5>
             <br></br>
@@ -113,7 +113,7 @@ export default function HomePage() {
                       >
                         {blog.title}
                       </h2>{" "}
-                      <br></br>
+                      {/* <br></br> */}
                       <h5
                         className="card-text"
                         style={{

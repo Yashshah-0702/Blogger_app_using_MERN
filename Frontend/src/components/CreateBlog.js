@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -11,6 +11,16 @@ export default function CreateBlog() {
   //   const [message, setMessage] = useState("");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      toast.error("Please login for this functionality");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
+  }, [token, navigate]);
+
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -25,17 +35,23 @@ export default function CreateBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!token) {
+      toast.error("Please login for this functionality");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+      return;
+    }
     if (typeof title !== "string" || title.length < 20 || title.length > 50) {
       toast.error("Title must be a string and between 20 and 50 characters.");
       return;
     }
     if (
       typeof content !== "string" ||
-      content.length < 300 ||
-      content.length > 1600
+      content.length < 300 
     ) {
       toast.error(
-        "Content must be a string and between 300 and 1600 characters."
+        "Content must be a string and minimum of 300."
       );
       return;
     }
@@ -95,7 +111,8 @@ export default function CreateBlog() {
             <h1>Create Blog</h1>
             <p>Turn your thoughts into blogs</p>
           </div>
-          <br></br><br></br>
+          <br></br>
+          <br></br>
           <div className="mb-3 mt-3">
             <label className="form-label">Title</label>
             <input

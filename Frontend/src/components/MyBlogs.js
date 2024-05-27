@@ -77,7 +77,7 @@ const BlogList = () => {
       {/* <br></br> */}
       {blogs && blogs.length > 0 ? (
         <>
-          <h4 className="text-center display-6 bg-dark bg-gradient text-light">
+          <h4 className="text-center display-6 bg-dark bg-gradient mx-1 rounded-3 text-light">
             Your Blogs
           </h4>
           <br></br>
@@ -111,7 +111,7 @@ const BlogList = () => {
                   >
                     {blog.title}
                   </h2>{" "}
-                  <br></br>
+                  {/* <br></br> */}
                   <h5
                     className="card-text"
                     style={{

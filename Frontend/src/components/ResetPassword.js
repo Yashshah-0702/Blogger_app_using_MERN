@@ -108,7 +108,7 @@ const ResetPassword = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-primary"
+                  className="btn btn-outline-dark"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? "Hide" : "Show"}
@@ -130,7 +130,7 @@ const ResetPassword = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-primary"
+                  className="btn btn-outline-dark"
                   onClick={toggleConfirmPasswordVisibility}
                 >
                   {showConfirmPassword ? "Hide" : "Show"}
@@ -140,7 +140,7 @@ const ResetPassword = () => {
           </div>
         </div>
         <div className="text-center">
-          <button className="btn btn-outline-primary btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-lg" type="submit">
             Reset Password
           </button>
         </div>

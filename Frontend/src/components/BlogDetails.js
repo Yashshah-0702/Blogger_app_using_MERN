@@ -47,7 +47,7 @@ function BlogDetails() {
           }
         );
         // console.log(response.data);
-        toast.success(response.data.message);
+        // toast.success(response.data.message);
         setBlogDetails(response.data.data);
       } catch (error) {
         toast.error("server error");
@@ -62,7 +62,7 @@ function BlogDetails() {
       <br></br>
       {/* <h2 className="h2 text-center">Blog Details</h2> */}
       {blogDetails && (
-          <div className="card shadow p-4 mt-5 mb-4" key={blogDetails._id}>
+          <div className="card shadow p-4  mb-4" key={blogDetails._id}>
             <img
               src={blogDetails.blogUrl}
               alt={blogDetails.title}

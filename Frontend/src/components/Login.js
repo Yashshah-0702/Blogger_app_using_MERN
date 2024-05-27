@@ -86,7 +86,7 @@ const Login = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-primary"
+                  className="btn btn-outline-dark btn-lg"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? "Hide" : "Show"}
