@@ -60,6 +60,22 @@ const UpdateProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(formData.first_name.length < 3 || formData.first_name.length > 20){
+      toast.error("First Name must be between 3 and 20 characters.");
+      return;
+    }
+    if(formData.last_name.length < 3 || formData.last_name.length > 20){
+      toast.error("Last Name must be between 3 and 20 characters.");
+      return;
+    }
+    if(formData.user_name.length < 3 || formData.user_name.length > 20){
+      toast.error("User Name must be between 3 and 20 characters.");
+      return;
+    }
+    if(formData.email.length < 3 || formData.email > 50){
+      toast.error("Email must be between 3 and 50 characters.");
+      return;
+    }
     try {
       const token = localStorage.getItem("token");
       if (!token) {

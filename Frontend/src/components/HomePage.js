@@ -50,24 +50,22 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="mx-lg-5">
-      <div className="d-lg-flex justify-content-between align-items-center border-bottom bg-primary text-light opacity-40">
+    <div className="px-lg-5">
+      <div className="d-lg-flex justify-content-between align-items-center border-bottom bg-gradient opacity-40">
         <div className="m-3">
           <h1 className="display-4">
             Welcome To Bl<span>👀</span>ging World
           </h1>
+          <p className="small">Turn your thoughts into blogs</p>
         </div>
         <div className="text-lg-right text-center m-3">
-          <NavLink
-            to="/createBlog"
-            className="btn btn btn-outline-light btn-lg"
-          >
+          <NavLink to="/createBlog" className="btn btn btn-outline-dark btn-lg">
             Create a Blog ✍️
           </NavLink>{" "}
-          {"  "}
+          {/* {"  "}
           <button className="btn btn btn-outline-light btn-lg">
             Create a Post 📝
-          </button>
+          </button> */}
         </div>
       </div>
       {/* <div>
@@ -76,57 +74,145 @@ export default function HomePage() {
         </h3>
       </div> */}
       <br></br>
-      <div className="row">
-        <div className="col-lg-6 col-md-6 col-sm-12 mt-3 border-end">
-          <h5 className="text-center display-6">Latest Blogs ✍️</h5>
-          <br></br>
-          <div className="row row-cols-1 row-cols-md-1 g-4">
-            {blogs.map((blog) => (
-              <div className="col">
-                <div
-                  key={blog._id}
-                  className="card m-lg-3 shadow"
-                  style={{ height: "100%", width: "75%" }}
-                >
-                  <img
-                    src={blog.blogUrl}
-                    alt={blog.title}
-                    className="card-img-top m-4 w-auto"
-                    style={{ height: "350px" }}
-                  />
-                  <div key={blog._id} className="card-body">
-                    <h2 className="card-title">{blog.title}</h2> <br></br>
-                    <h5 className="card-text">{blog.content}</h5> <br></br>
-                    <p className="card-text">
-                      Author:-
-                      <small className="text-muted">{blog.author}</small>
-                    </p>
-                    <p className="card-text">
-                      Publication Date:-
-                      <small className="text-muted">
-                        {formatDate(blog.Publication_date)}
-                      </small>
-                    </p>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => handleViewDetails(blog._id)}
-                    >
-                      View Details
-                    </button>
+      <div className="">
+        {blogs && blogs.length > 0 ? (
+          <>
+            <h5 className="text-center display-6 bg-dark bg-gradient text-light">
+              Latest Blogs ✍️
+            </h5>
+            <br></br>
+            <div className="">
+              {/* <br></br> */}
+              {blogs
+                .slice(-6)
+                .reverse()
+                .map((blog) => (
+                  <div
+                    className="row bg-gradient border-bottom rounded-3"
+                    style={{ backgroundColor: "#f0f0f0" }}
+                  >
+                    <div className="col-md-4 col-lg-4 col-sm-12 p-5 border-end border-light">
+                      <img
+                        src={blog.blogUrl}
+                        alt={blog.title}
+                        className="w-100"
+                        style={{ height: "350px" }}
+                      />
+                    </div>
+                    <div className="col-md-8 col-lg-8 col-sm-12 p-5">
+                      <h2
+                        className="card-title"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "normal", // Ensuring normal whitespace
+                          height: "3.6em", // Adjust this value based on line height and number of lines
+                        }}
+                      >
+                        {blog.title}
+                      </h2>{" "}
+                      <br></br>
+                      <h5
+                        className="card-text"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "normal", // Ensuring normal whitespace
+                          height: "3.6em", // Adjust this value based on line height and number of lines
+                        }}
+                      >
+                        {blog.content}
+                      </h5>{" "}
+                      <br></br>
+                      <p className="card-text">
+                        Author :-
+                        <small className="text-dark text-decoration-underline">
+                          {blog.author}
+                        </small>
+                      </p>
+                      <p className="card-text">
+                        Publication Date:-
+                        <small className="text-dark">
+                          {formatDate(blog.Publication_date)}
+                        </small>
+                      </p>
+                      <button
+                        className="btn btn-outline-dark"
+                        onClick={() => handleViewDetails(blog._id)}
+                      >
+                        View Details
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="col-lg-6 col-md-6 col-sm-12 mt-3">
-          <h5 className="text-center display-6">Latest Posts 📝</h5>
-          <div className="border-end border-bottom p-3">
-            <h1>Post</h1>
-          </div>
-        </div>
+                ))}
+            </div>
+          </>
+        ) : (
+          <h1 className="text-center h1 text-muted">No Blogs Found</h1>
+        )}
       </div>
+      {/* <div className="container mt-5">
+        <br></br>
+        <h5 className="text-center display-6">Latest Posts 📝</h5>
+        <div className="border-end border-bottom p-3">
+          <h1>Post</h1>
+        </div>
+      </div> */}
       <ToastContainer />
     </div>
   );
 }
+// <div className="col">
+//   <div
+//     key={blog._id}
+//     className="card p-lg-3 shadow"
+//     style={{ height: "100%", width: "100%" }}
+//   >
+//     <img
+//       src={blog.blogUrl}
+//       alt={blog.title}
+//       className="card-img-top m-4 w-auto"
+//       style={{ height: "350px" }}
+//     />
+//     <div key={blog._id} className="card-body">
+// <h2 className="card-title">{blog.title}</h2> <br></br>
+// <h5
+//   className="card-text"
+//   style={{
+//     display: "-webkit-box",
+//     WebkitLineClamp: 3,
+//     WebkitBoxOrient: "vertical",
+//     overflow: "hidden",
+//     textOverflow: "ellipsis",
+//     whiteSpace: "normal", // Ensuring normal whitespace
+//     height: "3.6em", // Adjust this value based on line height and number of lines
+//   }}
+// >
+//   {blog.content}
+// </h5>{" "}
+// <br></br>
+// <p className="card-text">
+//   Author:-
+//   <small className="text-muted">{blog.author}</small>
+// </p>
+// <p className="card-text">
+//   Publication Date:-
+//   <small className="text-muted">
+//     {formatDate(blog.Publication_date)}
+//   </small>
+// </p>
+// <button
+//   className="btn btn-primary"
+//   onClick={() => handleViewDetails(blog._id)}
+// >
+//   View Details
+// </button>
+//     </div>
+//   </div>
+// </div>

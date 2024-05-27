@@ -25,6 +25,32 @@ export default function CreateBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (typeof title !== "string" || title.length < 20 || title.length > 50) {
+      toast.error("Title must be a string and between 20 and 50 characters.");
+      return;
+    }
+    if (
+      typeof content !== "string" ||
+      content.length < 300 ||
+      content.length > 1600
+    ) {
+      toast.error(
+        "Content must be a string and between 300 and 1600 characters."
+      );
+      return;
+    }
+    if (image) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      if (!allowedTypes.includes(image.type)) {
+        toast.error(
+          "Invalid image format. Only JPEG, JPG, and PNG are allowed."
+        );
+        return;
+      }
+    } else {
+      toast.error("Image is required.");
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -84,7 +110,7 @@ export default function CreateBlog() {
               value={content}
               placeholder="Content"
               className="form-control"
-              rows="3"
+              rows="10"
               onChange={handleContentChange}
               required
             ></textarea>

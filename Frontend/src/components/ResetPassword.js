@@ -21,13 +21,22 @@ const ResetPassword = () => {
       [name]: value,
     });
   };
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\W).{8,20}$/;
+    return passwordRegex.test(password);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { secretCode, password, confirmPassword } = formData;
     const token = localStorage.getItem("resettoken");
-
+    if (!validatePassword(password)) {
+      toast.error(
+        "Password must be 8-20 characters long, include at least one special character, and one uppercase character."
+      );
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:7000/user/resetPassword",

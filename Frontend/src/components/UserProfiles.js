@@ -58,38 +58,40 @@ const UserProfiles = () => {
   return (
     <>
       <div>
-        <h1>User Profiles :-</h1> <br />
         {profiles && profiles.length > 0 ? (
-          <table className="p-2 text-center table table-hover">
-            <thead>
-              <tr>
-                <th>Sr.NO.</th>
-                <th>ID</th>
-                <th>FullName</th>
-                <th>Email</th>
-                <th>User Type</th>
-                <th>Bio/Introduction</th>
-              </tr>
-            </thead>
-            <tbody>
-              {profiles.map((profile, index) => (
-                <tr key={profile._id}>
-                  <td>{index + 1}</td>
-                  <td>{profile._id}</td>
-                  <td>{profile.first_name + " " + profile.last_name}</td>
-                  <td>{profile.email}</td>
-                  <td>
-                    {profile.user_type === 2 ? "User" : profile.user_type}
-                  </td>
-                  <td>
-                    {profile.bio === "" || !profile.bio
-                      ? "User has no bio"
-                      : profile.bio}
-                  </td>
+          <>
+            <h1>User Profiles :-</h1> <br />
+            <table className="p-2 text-center table table-hover">
+              <thead>
+                <tr>
+                  <th>Sr.NO.</th>
+                  <th>ID</th>
+                  <th>FullName</th>
+                  <th>Email</th>
+                  <th>User Type</th>
+                  <th>Bio/Introduction</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {profiles.map((profile, index) => (
+                  <tr key={profile._id}>
+                    <td>{index + 1}</td>
+                    <td>{profile._id}</td>
+                    <td>{profile.first_name + " " + profile.last_name}</td>
+                    <td>{profile.email}</td>
+                    <td>
+                      {profile.user_type === 2 ? "User" : profile.user_type}
+                    </td>
+                    <td>
+                      {profile.bio === "" || !profile.bio
+                        ? "User has no bio"
+                        : profile.bio}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         ) : (
           <p>No profiles available.</p>
         )}

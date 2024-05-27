@@ -19,7 +19,7 @@ export default function Navbar({ name }) {
     <nav className="navbar navbar-expand-lg navbar-dark opacity-40 bg-dark bg-gradient fw-bold">
       <div className="container-fluid px-5">
         <Link className="navbar-brand" to="/">
-          <h1 className="h1">Blogging</h1>
+          <h1 className="h1">Blogging World</h1>
         </Link>
         <button
           className="navbar-toggler"
@@ -39,21 +39,37 @@ export default function Navbar({ name }) {
                 All Blogs
               </Link>
             </li>
-            <li className="nav-item h4">
-              {userType === "1" ? (
-                <Link className="nav-link" to="/userProfiles">
-                  User Lists
-                </Link>
-              ) : (
+            {userType === "1" ? (
+              <>
+                <li className="nav-item h4">
+                  <Link className="nav-link" to="/userProfiles">
+                    User Lists
+                  </Link>
+                </li>
+                <li className="nav-item h4">
+                  <Link className="nav-link" to="/myBlogs">
+                    My Blogs
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item h4">
                 <Link className="nav-link" to="/myBlogs">
                   My Blogs
                 </Link>
-              )}
+              </li>
+            )}
+            {/* {userType === "2" && ( */}
+            <li className="nav-item h4">
+              <Link className="nav-link" to="/createBlog">
+                Create Blog
+              </Link>
             </li>
+            {/* )} */}
             {userType === "2" && (
               <li className="nav-item h4">
-                <Link className="nav-link" to="/createBlog">
-                  Create Blog
+                <Link className="nav-link" to="/aboutUs">
+                  About Us
                 </Link>
               </li>
             )}

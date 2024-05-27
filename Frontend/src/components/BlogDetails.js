@@ -50,7 +50,7 @@ function BlogDetails() {
         toast.success(response.data.message);
         setBlogDetails(response.data.data);
       } catch (error) {
-       toast.error("server error")
+        toast.error("server error");
       }
     };
 
@@ -68,8 +68,23 @@ function BlogDetails() {
             alt={blogDetails.title}
             style={{ width: "50%", height: "50%" }}
           />
-          <h3>{blogDetails.title}</h3>
-          <p  className="text-muted">{blogDetails.content}</p>
+          <br></br>
+          <div className="m-5 card-body">
+            <h3>{blogDetails.title}</h3>
+            <br></br>
+            <h5 className="h5 text-muted">{blogDetails.content}</h5>
+            <br></br>
+            <p className=" card-text">
+              Author:-
+              <small className="text-muted">{blogDetails.author}</small>
+            </p>
+            <p className=" card-text">
+              Publication Date:-
+              <small className="text-muted">
+                {formatDate(blogDetails.Publication_date)}
+              </small>
+            </p>
+          </div>
 
           {/* Render other details as needed */}
         </div>

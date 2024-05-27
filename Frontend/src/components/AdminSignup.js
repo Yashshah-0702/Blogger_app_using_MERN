@@ -14,6 +14,22 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(firstName.length < 2 || firstName.length > 20){
+      toast.error("First Name must be between 2 and 20 characters.");
+      return;
+    }
+    if(lastName.length < 2 || lastName.length > 20){
+      toast.error("Last Name must be between 2 and 20 characters.");
+      return;
+    }
+    if(userName.length < 3 || userName.length > 20){
+      toast.error("User Name must be between 3 and 20 characters.");
+      return;
+    }
+    if(email.length < 3 || email.length > 50){
+      toast.error("Email must be between 3 and 50 characters.");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:7000/user/signup/admin",

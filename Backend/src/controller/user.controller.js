@@ -14,7 +14,7 @@ exports.signUp = async (req, res) => {
     let userType = 2;
     if (user === "admin") {
       userType = 1;
-      password = crypto.randomBytes(8).toString("hex");
+      password = crypto.randomBytes(5).toString("hex");
       const email = await User.findOne({ email: req.body.email });
       if (email) {
         return failure(
