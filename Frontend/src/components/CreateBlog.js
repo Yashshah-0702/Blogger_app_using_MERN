@@ -18,8 +18,9 @@ export default function CreateBlog() {
       setTimeout(() => {
         navigate("/login");
       }, 1000);
+      return;
     }
-  }, [token, navigate]);
+  }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -42,31 +43,7 @@ export default function CreateBlog() {
       }, 1000);
       return;
     }
-    if (typeof title !== "string" || title.length < 20 || title.length > 50) {
-      toast.error("Title must be a string and between 20 and 50 characters.");
-      return;
-    }
-    if (
-      typeof content !== "string" ||
-      content.length < 300 
-    ) {
-      toast.error(
-        "Content must be a string and minimum of 300."
-      );
-      return;
-    }
-    if (image) {
-      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-      if (!allowedTypes.includes(image.type)) {
-        toast.error(
-          "Invalid image format. Only JPEG, JPG, and PNG are allowed."
-        );
-        return;
-      }
-    } else {
-      toast.error("Image is required.");
-      return;
-    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -90,6 +67,26 @@ export default function CreateBlog() {
         }, 1000);
         return;
       }
+      if (typeof title !== "string" || title.length < 20 || title.length > 50) {
+        toast.error("Title must be a string and between 20 and 50 characters.");
+        return;
+      }
+      if (typeof content !== "string" || content.length < 300) {
+        toast.error("Content must be a string and minimum of 300.");
+        return;
+      }
+      if (image) {
+        const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        if (!allowedTypes.includes(image.type)) {
+          toast.error(
+            "Invalid image format. Only JPEG, JPG, and PNG are allowed."
+          );
+          return;
+        }
+      } else {
+        toast.error("Image is required.");
+        return;
+      }
 
       toast.success(response.data.message);
       setTimeout(() => {
@@ -108,11 +105,20 @@ export default function CreateBlog() {
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4 ">
           <div className="text-center rounded-3 py-2 text-light bg-dark">
-            <h1>Create Blog</h1>
-            <p>Turn your thoughts into blogs</p>
+            <h1 className="h5">Create Blog</h1>
+            <p className="small">
+              Turn your{" "}
+              <span className="bg-success text-white border-bottom border-dark">
+                🅃🄷🄾🅄🄶🄷🅃🅂
+              </span>{" "}
+              into{" "}
+              <span className="bg-primary text-white border-bottom border-dark">
+                🄱🄻🄾🄶🅂
+              </span>
+            </p>
           </div>
-          <br></br>
-          <br></br>
+          {/* <br></br>
+          <br></br> */}
           <div className="mb-3 mt-3">
             <label className="form-label">Title</label>
             <input
@@ -130,7 +136,7 @@ export default function CreateBlog() {
               value={content}
               placeholder="Content"
               className="form-control"
-              rows="10"
+              rows="7"
               onChange={handleContentChange}
               required
             ></textarea>
@@ -144,11 +150,11 @@ export default function CreateBlog() {
               required
             />
           </div>
-        </div>
-        <div className="text-center mb-5">
-          <button className="btn btn-outline-dark btn-lg" type="submit">
-            Submit
-          </button>
+          <div className="text-center mt-2 ">
+            <button className="btn btn-outline-dark btn-md" type="submit">
+              Submit
+            </button>
+          </div>
         </div>
       </form>
       <ToastContainer />

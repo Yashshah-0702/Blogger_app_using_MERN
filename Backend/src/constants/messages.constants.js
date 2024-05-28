@@ -14,6 +14,8 @@ const serverResponseMessage = {
   TOKEN_MISSING: "Token missing",
   PASSWORD_UPDATED_SUCCESSFULLY: "Password updated successfully",
   INVALID_SECRET_CODE: "Invalid secret code",
+  INVALID_OLD_PASSWORD:"Invalid old password",
+  PASSWORD_CHANGED_SUCCESSFULLY: "Password changed successfully",
 
   /* Certificate */
   CERTIFICATE_CREATED_SUCCESSFULLY: "Certificate created successfully",

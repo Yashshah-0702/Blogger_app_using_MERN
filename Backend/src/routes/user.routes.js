@@ -9,6 +9,7 @@ const {
   deleteProfile,
   forgotPassword,
   resetPassword,
+  changePassword,
 } = require("../controller/user.controller");
 const {
   verifyResetToken,
@@ -24,6 +25,7 @@ module.exports = () => {
   router.delete("/deleteProfile", isAuthenticated, deleteProfile);
   router.post("/forgotPassword", forgotPassword);
   router.post("/resetPassword", verifyResetToken, resetPassword);
+  router.post("/changePassword", isAuthenticated, changePassword);
 
   return router;
 };

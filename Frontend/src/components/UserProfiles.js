@@ -55,12 +55,15 @@ const UserProfiles = () => {
     fetchProfiles();
   }, [navigate]);
 
+  const truncateBio = (bio) => {
+    return bio.length > 3 ? bio.substring(0,15) + "..." : bio;
+  };
+
   return (
     <>
       <div>
         {profiles && profiles.length > 0 ? (
           <>
-            <h1>User Profiles :-</h1> <br />
             <table className="p-2 text-center table table-hover">
               <thead>
                 <tr>
@@ -83,9 +86,12 @@ const UserProfiles = () => {
                       {profile.user_type === 2 ? "User" : profile.user_type}
                     </td>
                     <td>
-                      {profile.bio === "" || !profile.bio
+                      {profile.bio
+                        ? truncateBio(profile.bio)
+                        : "User has no bio"}
+                      {/* {profile.bio === "" || !profile.bio
                         ? "User has no bio"
-                        : profile.bio}
+                        : profile.bio} */}
                     </td>
                   </tr>
                 ))}

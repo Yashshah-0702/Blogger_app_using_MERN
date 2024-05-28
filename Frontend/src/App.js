@@ -15,6 +15,7 @@ import ResetPassword from "./components/ResetPassword";
 import CreateBlog from "./components/CreateBlog";
 import BlogList from "./components/MyBlogs";
 import BlogDetails from "./components/BlogDetails";
+import ChangePassword from "./components/ChangePassword";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -40,18 +41,10 @@ const App = () => {
         <Route path="/createBlog" element={<CreateBlog />} />
         <Route path="/myBlogs" element={<BlogList />} />
         <Route path="/getBlog" element={<BlogDetails />} />
+        <Route path="/changePassword" element={<ChangePassword/>} />
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>
-    // <div className="App">
-    //   <header className="App-header">
-    //     {view === 'login' ? (
-    //       <Login setView={setView} />
-    //     ) : (
-    //       <Signup setView={setView} />
-    //     )}
-    //   </header>
-    // </div>
   );
 };
 

@@ -160,6 +160,27 @@ exports.getProfiles = async (req, res) => {
   }
 };
 
+exports.getAdminProfiles = async (req, res) => {
+  try {
+    const { user } = req;
+    if (user.user_type === 1) {
+      const response = await User.find({ user_type: 1 });
+      return success(
+        res,
+        httpsStatusCodes.SUCCESS,
+        serverResponseMessage.PROFILES_FETCHED_SUUCESSFULLY,
+        response
+      );
+    }
+  } catch (error) {
+    return failure(
+      res,
+      httpsStatusCodes.INTERNAL_SERVER_ERROR,
+      serverResponseMessage.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 exports.updateProfile = async (req, res) => {
   try {
     const { user } = req;
@@ -304,6 +325,50 @@ exports.resetPassword = async (req, res) => {
     );
   } catch (error) {
     console.log(error);
+    return failure(
+      res,
+      httpsStatusCodes.INTERNAL_SERVER_ERROR,
+      serverResponseMessage.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
+exports.changePassword = async (req, res) => {
+  try {
+    const { user } = req;
+    console.log(user)
+    const { oldPassword, password, confirmPassword } = req.body;
+    const comparePassword = await bcrypt.compare(oldPassword, user.password);
+    if (!comparePassword) {
+      return failure(
+        res,
+        httpsStatusCodes.BAD_REQUEST,
+        serverResponseMessage.INVALID_OLD_PASSWORD
+      );
+    }
+    if (password !== confirmPassword) {
+      return failure(
+        res,
+        httpsStatusCodes.BAD_REQUEST,
+        serverResponseMessage.PASSWORD_NOT_MATCHED
+      );
+    }
+    const encryptPassword = await bcrypt.hash(password, 10);
+    const data = { password: encryptPassword };
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $set: data },
+      { new: true }
+    );
+
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.PASSWORD_CHANGED_SUCCESSFULLY,
+      updatedUser
+    );
+
+  } catch (error) {
     return failure(
       res,
       httpsStatusCodes.INTERNAL_SERVER_ERROR,

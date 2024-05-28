@@ -112,7 +112,7 @@ function UserProfile() {
       {userData ? (
         <div className="container">
           <div className="card shadow p-5 mb-4">
-            <h1 className="bg-dark text-center text-light">
+            <h1 className="h4 py-3 rounded-3 bg-dark text-center text-light">
               {userData.user_type === 1 ? "Admin Profile" : "User Profile"}
             </h1>{" "}
             <br></br> <br></br>
@@ -132,19 +132,27 @@ function UserProfile() {
             <div className="text-center">
               <Link
                 to="/updateProfile"
-                className="btn btn-outline-dark btn-lg"
+                className="btn btn-outline-dark btn-md"
                 type="submit"
               >
                 Update-Profile
               </Link>{" "}
               {"   "}
               <button
-                className="btn btn-outline-dark btn-lg"
+                className="btn btn-outline-dark btn-md"
                 type="submit"
                 onClick={handleDeleteProfile}
               >
                 Delete-Profile
               </button>
+              {"   "}
+              <Link
+                to="/changePassword"
+                className="btn btn-outline-dark btn-md"
+                type="submit"
+              >
+                Change-Password
+              </Link>{" "}
             </div>
           </div>
         </div>

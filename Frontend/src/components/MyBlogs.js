@@ -77,7 +77,7 @@ const BlogList = () => {
       {/* <br></br> */}
       {blogs && blogs.length > 0 ? (
         <>
-          <h4 className="text-center display-6 bg-dark bg-gradient mx-1 rounded-3 text-light">
+          <h4 className="h4 text-center py-3 bg-dark bg-gradient mx-1 rounded-3 text-light">
             Your Blogs
           </h4>
           <br></br>
@@ -93,12 +93,12 @@ const BlogList = () => {
                     src={blog.blogUrl}
                     alt={blog.title}
                     className="w-100"
-                    style={{ height: "350px" }}
+                    style={{ height: "260px" }}
                   />
                 </div>
-                <div className="col-md-8 col-lg-8 col-sm-12 p-5">
+                <div className="col-md-8 col-lg-8 col-sm-12 p-lg-5 p-3">
                   <h2
-                    className="card-title"
+                    className="h4 card-title"
                     style={{
                       display: "-webkit-box",
                       WebkitLineClamp: 3,
@@ -106,14 +106,14 @@ const BlogList = () => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "normal", // Ensuring normal whitespace
-                      height: "3.6em", // Adjust this value based on line height and number of lines
+                      height: "2.0em", // Adjust this value based on line height and number of lines
                     }}
                   >
                     {blog.title}
-                  </h2>{" "}
+                  </h2>
                   {/* <br></br> */}
                   <h5
-                    className="card-text"
+                    className="small card-text"
                     style={{
                       display: "-webkit-box",
                       WebkitLineClamp: 3,
@@ -129,7 +129,9 @@ const BlogList = () => {
                   <br></br>
                   <p className="card-text">
                     Author:-
-                    <small className="text-dark text-decoration-underline">{blog.author}</small>
+                    <small className="text-dark text-decoration-underline">
+                      {blog.author.toUpperCase()}
+                    </small>
                   </p>
                   <p className="card-text">
                     Publication Date:-

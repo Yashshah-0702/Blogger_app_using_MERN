@@ -58,13 +58,13 @@ const Signup = () => {
   return (
     <div className="container">
       <br></br>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className=" bg-dark text-light py-3 text-center rounded-3">
+          <h2 className="h5 bg-dark text-light py-3 text-center rounded-3">
             {" "}
             Create a Admin profile :-
           </h2>
-          <br></br> <br></br>
+          {/* <br></br> <br></br> */}
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
             <input
@@ -121,20 +121,20 @@ const Signup = () => {
             />
           </div> */}
         </div>
-        <br></br>
-        <div className="text-center">
-          <button className="btn btn-outline-dark btn-lg" type="submit">
-            Signup
+        <div className="mt-2 text-center">
+          <button className="btn btn-outline-dark btn-md" type="submit">
+            Submit
           </button>
-          <br></br>
-          <br></br>
-          <p>
-            Already have an admin account then {"  "}
-            <span>
-              <NavLink to="/login">Login</NavLink>
-            </span>{" "}
-          </p>
+          {/* <br></br>
+            <br></br> */}
+          {/* <p>
+              Already have an admin account then {"  "}
+              <span>
+                <NavLink to="/login">Login</NavLink>
+              </span>{" "}
+            </p> */}
         </div>
+        <br></br>
       </form>
       <ToastContainer />
     </div>

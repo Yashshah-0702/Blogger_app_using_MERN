@@ -125,7 +125,7 @@ const UpdateProfile = () => {
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="bg-dark text-light py-3 rounded-3 text-center">Update Profile</h2>
+          <h2 className="bg-dark text-light py-3 rounded-3 text-center h5">Update Profile</h2>
           <div className="mb-3 mt-3">
             <label className="form-label">Email:</label>
             <input
@@ -183,7 +183,7 @@ const UpdateProfile = () => {
           </div>
         </div>
         <div className="text-center mb-5">
-          <button className="btn btn-outline-dark btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-md" type="submit">
             Update Profile
           </button>
         </div>

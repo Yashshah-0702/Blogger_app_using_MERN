@@ -62,7 +62,7 @@ function BlogDetails() {
       <br></br>
       {/* <h2 className="h2 text-center">Blog Details</h2> */}
       {blogDetails && (
-          <div className="card shadow p-4  mb-4" key={blogDetails._id}>
+          <div className="card shadow p-lg-5 p-2  mb-4" key={blogDetails._id}>
             <img
               src={blogDetails.blogUrl}
               alt={blogDetails.title}
@@ -70,14 +70,14 @@ function BlogDetails() {
             />
             <br></br>
             <div className="m-lg-5 card-body">
-              <h3 className="d-lg-visible">{blogDetails.title}</h3>
+              <h3>{blogDetails.title}</h3>
               <br></br>
               <h5 className="h5 text-muted">{blogDetails.content}</h5>
               <br></br>
               <p className=" card-text">
                 Author:-
                 <small className="text-muted text-decoration-underline">
-                  {blogDetails.author}
+                  {blogDetails.author.toUpperCase()}
                 </small>
               </p>
               <p className=" card-text">

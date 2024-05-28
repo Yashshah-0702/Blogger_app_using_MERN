@@ -80,8 +80,8 @@ const Signup = () => {
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="bg-dark text-light py-3 rounded-3 text-center"> Create a blogging profile :-</h2>
-          <br></br> <br></br>
+          <h2 className="bg-dark text-light py-3 rounded-3 text-center h5"> Create a blogging profile :-</h2>
+          
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
             <input
@@ -161,7 +161,7 @@ const Signup = () => {
         </div>
         <br></br>
         <div className="text-center">
-          <button className="btn btn-outline-dark btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-md" type="submit">
             Signup
           </button>
           <br></br> <br></br>

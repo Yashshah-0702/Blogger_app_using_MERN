@@ -60,8 +60,9 @@ const Login = () => {
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="bg-dark text-light py-3 rounded-3 h2 text-center">Login into blogging World:-</h2>
-          <br></br><br></br>
+          <h2 className="h5 bg-dark text-light py-3 rounded-3 h2 text-center">Login into blogging World:-</h2>
+          <br></br>
+          {/* <br></br> */}
           <div className="mb-3">
             <label className="form-label">Email:</label>
             <input
@@ -104,7 +105,7 @@ const Login = () => {
               <NavLink to="/forgotPassword"> Forgot Password </NavLink>
             </span>
           </p>{" "}
-          <button className="btn btn-outline-dark btn-lg" type="submit">
+          <button className="btn btn-outline-dark btn-md" type="submit">
             Login
           </button>
           <br></br> <br></br>

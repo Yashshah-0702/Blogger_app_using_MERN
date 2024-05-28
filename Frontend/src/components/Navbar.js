@@ -19,7 +19,7 @@ export default function Navbar({ name }) {
     <nav className="navbar navbar-expand-lg navbar-dark opacity-40 bg-dark bg-gradient fw-bold">
       <div className="container-fluid px-5">
         <Link className="navbar-brand" to="/">
-          <h1 className="h1">Blogging World</h1>
+          <h1 className="h4">Blogging World</h1>
         </Link>
         <button
           className="navbar-toggler"
@@ -34,40 +34,40 @@ export default function Navbar({ name }) {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav me-auto">
-            <li className="nav-item h4">
+            <li className="nav-item h6">
               <Link className="nav-link " to="/">
                 All Blogs
               </Link>
             </li>
             {userType === "1" ? (
               <>
-                <li className="nav-item h4">
+                <li className="nav-item h6">
                   <Link className="nav-link" to="/userProfiles">
                     User Lists
                   </Link>
                 </li>
-                <li className="nav-item h4">
+                <li className="nav-item h6">
                   <Link className="nav-link" to="/myBlogs">
                     My Blogs
                   </Link>
                 </li>
               </>
             ) : (
-              <li className="nav-item h4">
+              <li className="nav-item h6">
                 <Link className="nav-link" to="/myBlogs">
                   My Blogs
                 </Link>
               </li>
             )}
-            {/* {userType === "2" && ( */}
-            <li className="nav-item h4">
-              <Link className="nav-link" to="/createBlog">
-                Create Blog
-              </Link>
-            </li>
-            {/* )} */}
+            {token && (
+              <li className="nav-item h6">
+                <Link className="nav-link" to="/createBlog">
+                  Create Blog
+                </Link>
+              </li>
+            )}
             {userType === "2" && (
-              <li className="nav-item h4">
+              <li className="nav-item h6">
                 <Link className="nav-link" to="/aboutUs">
                   About Us
                 </Link>
@@ -77,12 +77,12 @@ export default function Navbar({ name }) {
           <ul className="navbar-nav ms-auto">
             {!token ? (
               <>
-                <li className="nav-item h4">
+                <li className="nav-item h6">
                   <Link className="nav-link" to="/login">
                     Login
                   </Link>
                 </li>
-                <li className="nav-item h4">
+                <li className="nav-item h6">
                   <Link className="nav-link" to="/signup/user">
                     Signup
                   </Link>
@@ -90,13 +90,13 @@ export default function Navbar({ name }) {
               </>
             ) : (
               <>
-                <li className="nav-item h4">
+                <li className="nav-item h6">
                   <Link className="nav-link" to="#" onClick={handleLogout}>
                     Logout
                   </Link>
                 </li>
                 {userType === "1" && (
-                  <li className="nav-item h4">
+                  <li className="nav-item h6">
                     <Link className="nav-link" to="/signup/admin">
                       Create a admin profile
                     </Link>
@@ -104,7 +104,7 @@ export default function Navbar({ name }) {
                 )}
               </>
             )}
-            <li className="nav-item h4">
+            <li className="nav-item h6">
               <Link className="nav-link" to="/userProfile">
                 <span className="bg-light rounded-circle">🙎🏻‍♂️</span>
                 {"  "}
