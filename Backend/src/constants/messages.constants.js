@@ -14,7 +14,7 @@ const serverResponseMessage = {
   TOKEN_MISSING: "Token missing",
   PASSWORD_UPDATED_SUCCESSFULLY: "Password updated successfully",
   INVALID_SECRET_CODE: "Invalid secret code",
-  INVALID_OLD_PASSWORD:"Invalid old password",
+  INVALID_OLD_PASSWORD: "Invalid old password",
   PASSWORD_CHANGED_SUCCESSFULLY: "Password changed successfully",
 
   /* Certificate */
@@ -30,6 +30,8 @@ const serverResponseMessage = {
   BLOG_NOT_FOUND: "Blog not found",
   BLOG_FETCHED_SUUCESSFULLY: "Blog fetched successfully",
   BLOG_CREATED_SUCCESSFULLY: "Blog created successfully",
+  BLOG_UPDATED_SUCCESSFULLY: "Blog updated successfully",
+  BLOG_DELETED_SUCCESSFULLY: "Blog deleted successfully",
 
   /* Catch Error */
   INTERNAL_SERVER_ERROR: "Internal Server Error",

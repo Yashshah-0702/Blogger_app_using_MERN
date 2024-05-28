@@ -7,6 +7,8 @@ const {
   getBlogs,
   createBlog,
   getMyBlogs,
+  updateBlog,
+  deleteBlog
 } = require("../controller/blog.controller");
 
 module.exports = () => {
@@ -14,5 +16,7 @@ module.exports = () => {
   router.post("/getBlog", getBlog);
   router.get("/myBlog", isAuthenticated, getMyBlogs);
   router.post("/createBlog", isAuthenticated, uploadImgStorage, createBlog);
+  router.patch("/updateBlog", isAuthenticated, uploadImgStorage, updateBlog);
+  router.delete("/deleteBlog",isAuthenticated, uploadImgStorage, deleteBlog);
   return router;
 };

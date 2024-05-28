@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiKey } from "../config/api.config";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -14,16 +15,6 @@ const ChangePassword = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-//   useEffect(() => {
-//     if (!token) {
-//       toast.error("Please login for this functionality");
-//       setTimeout(() => {
-//         navigate("/login");
-//       }, 1000);
-//       return;
-//     }
-//   }, []);
-
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\W).{8,20}$/;
     return passwordRegex.test(password);
@@ -34,7 +25,7 @@ const ChangePassword = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/user/changePassword",
+        `${apiKey}/user/changePassword`,
         {
           oldPassword,
           password,

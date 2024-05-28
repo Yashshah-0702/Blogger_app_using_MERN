@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
@@ -37,6 +38,36 @@ const BlogList = () => {
     // navigate(`/blog/${blogId}`); // Redirect to the details page
   };
 
+  const deleteBlog = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your profile?"
+    );
+
+    if (!confirmed) {
+      return; // Exit the function if the user cancels the deletion
+    }
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        "http://localhost:7000/blog/deleteBlog",
+        {
+          data: { _id: id },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(response.data.message);
+      setTimeout(() => {
+        window.location.href = "/myBlogs";
+      }, 300);
+      return;
+    } catch (error) {
+      console.error("Error deleting the blog:", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -47,7 +78,7 @@ const BlogList = () => {
           }, 1000);
           return;
         }
-        const response = await axios.get("http://localhost:7000/blog/myBlog", {
+        const response = await axios.get(`${apiKey}/blog/myBlog`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -139,12 +170,23 @@ const BlogList = () => {
                       {formatDate(blog.Publication_date)}
                     </small>
                   </p>
-                  <button
-                    className="btn btn-outline-dark"
-                    onClick={() => handleViewDetails(blog._id)}
-                  >
-                    View Details
-                  </button>
+                  <div>
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={() => handleViewDetails(blog._id)}
+                    >
+                      View Details
+                    </button>{" "}
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={() => deleteBlog(blog._id)}
+                    >
+                      Delete Blog
+                    </button>{" "}
+                    <NavLink to="/updateBlog" className="btn btn-outline-dark">
+                      Update Blog
+                    </NavLink>
+                  </div>
                 </div>
               </div>
               // </div>

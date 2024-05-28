@@ -13,6 +13,7 @@ const {
 const dir = path.resolve(__dirname, "../../");
 const removeBlog = async (blog) => {
   const existingBlogFileName = blog.blogUrl.split("/").pop();
+  console.log(existingBlogFileName);
   const existingBlogPath = path.join(
     dir,
     mediaConfig.main_upload_dir + "/" + ImagePath + existingBlogFileName
@@ -67,7 +68,6 @@ exports.getBlog = async (req, res) => {
 exports.createBlog = async (req, res) => {
   try {
     const { user } = req;
-    console.log(user);
     const blogPath =
       `http://localhost:7000` +
       req.media_details.file_path +
@@ -81,7 +81,6 @@ exports.createBlog = async (req, res) => {
       Publication_date: date,
       created_by: user.id,
     };
-    console.log(data);
     const response = await Blog.create(data);
     return success(
       res,
@@ -120,7 +119,41 @@ exports.getMyBlogs = async (req, res) => {
 
 exports.updateBlog = async (req, res) => {
   try {
+    const { user } = req;
+    const blogPath =
+      `http://localhost:7000` +
+      req.media_details.file_path +
+      req.media_details.name;
+    const { _id } = req.body;
+    const blog = await Blog.findOne({ _id });
+    if (!blog) {
+      return failure(
+        res,
+        httpsStatusCodes.NOT_FOUND,
+        serverResponseMessage.BLOG_NOT_FOUND
+      );
+    }
+    if (user.id !== blog.created_by) {
+      return failure(
+        res,
+        httpsStatusCodes.ACCESS_DENIED,
+        serverResponseMessage.ACCESS_DENIED
+      );
+    }
+    await removeBlog(blog);
+    const data = {
+      ...req.body,
+      blogUrl: blogPath,
+    };
+    const response = await Blog.findByIdAndUpdate(_id, data, { new: true });
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.BLOG_UPDATED_SUCCESSFULLY,
+      response
+    );
   } catch (error) {
+    console.log(error);
     return failure(
       res,
       httpsStatusCodes.INTERNAL_SERVER_ERROR,
@@ -128,3 +161,38 @@ exports.updateBlog = async (req, res) => {
     );
   }
 };
+
+exports.deleteBlog = async(req, res) => {
+  try {
+    const { user } = req;
+    const { _id } = req.body;
+    const blog = await Blog.findOne({ _id });
+    if (!blog) {
+      return failure(
+        res,
+        httpsStatusCodes.NOT_FOUND,
+        serverResponseMessage.BLOG_NOT_FOUND
+      );
+    }
+    if (user.id !== blog.created_by) {
+      return failure(
+        res,
+        httpsStatusCodes.ACCESS_DENIED,
+        serverResponseMessage.ACCESS_DENIED
+      );
+    }
+    await removeBlog(blog);
+    await Blog.findByIdAndDelete(_id);
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.BLOG_DELETED_SUCCESSFULLY
+    );
+  } catch (error) {
+    return failure(
+      res,
+      httpsStatusCodes.INTERNAL_SERVER_ERROR,
+      serverResponseMessage.INTERNAL_SERVER_ERROR
+    );
+  }
+}

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiKey } from "../config/api.config";
 
 const Signup = () => {
   const [userName, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,16 +31,12 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "http://localhost:7000/user/signup/admin",
-        {
-          first_name: firstName,
-          last_name: lastName,
-          user_name: userName,
-          email,
-          // password,
-        }
-      );
+      const response = await axios.post(`${apiKey}/user/signup/admin`, {
+        first_name: firstName,
+        last_name: lastName,
+        user_name: userName,
+        email,
+      });
 
       if (response.data.message === "Email already exists") {
         toast.error(response.data.message);
@@ -64,7 +60,6 @@ const Signup = () => {
             {" "}
             Create a Admin profile :-
           </h2>
-          {/* <br></br> <br></br> */}
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
             <input
@@ -109,30 +104,11 @@ const Signup = () => {
               required
             />
           </div>
-          {/* <div className="mb-3">
-            <label className="form-label">Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="form-control"
-              required
-            />
-          </div> */}
         </div>
         <div className="mt-2 text-center">
           <button className="btn btn-outline-dark btn-md" type="submit">
             Submit
           </button>
-          {/* <br></br>
-            <br></br> */}
-          {/* <p>
-              Already have an admin account then {"  "}
-              <span>
-                <NavLink to="/login">Login</NavLink>
-              </span>{" "}
-            </p> */}
         </div>
         <br></br>
       </form>
