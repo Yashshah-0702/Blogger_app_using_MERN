@@ -43,6 +43,26 @@ export default function CreateBlog() {
       }, 1000);
       return;
     }
+    if (typeof title !== "string" || title.length < 20 || title.length > 50) {
+      toast.error("Title must be a string and between 20 and 50 characters.");
+      return;
+    }
+    if (typeof content !== "string" || content.length < 300) {
+      toast.error("Content must be a string and minimum of 300.");
+      return;
+    }
+    if (image) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      if (!allowedTypes.includes(image.type)) {
+        toast.error(
+          "Invalid image format. Only JPEG, JPG, and PNG are allowed."
+        );
+        return;
+      }
+    } else {
+      toast.error("Image is required.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -65,26 +85,6 @@ export default function CreateBlog() {
         setTimeout(() => {
           navigate("/login");
         }, 1000);
-        return;
-      }
-      if (typeof title !== "string" || title.length < 20 || title.length > 50) {
-        toast.error("Title must be a string and between 20 and 50 characters.");
-        return;
-      }
-      if (typeof content !== "string" || content.length < 300) {
-        toast.error("Content must be a string and minimum of 300.");
-        return;
-      }
-      if (image) {
-        const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-        if (!allowedTypes.includes(image.type)) {
-          toast.error(
-            "Invalid image format. Only JPEG, JPG, and PNG are allowed."
-          );
-          return;
-        }
-      } else {
-        toast.error("Image is required.");
         return;
       }
 

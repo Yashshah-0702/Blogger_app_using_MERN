@@ -120,10 +120,7 @@ exports.getMyBlogs = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   try {
     const { user } = req;
-    const blogPath =
-      `http://localhost:7000` +
-      req.media_details.file_path +
-      req.media_details.name;
+    let blogPath;
     const { _id } = req.body;
     const blog = await Blog.findOne({ _id });
     if (!blog) {
@@ -140,7 +137,15 @@ exports.updateBlog = async (req, res) => {
         serverResponseMessage.ACCESS_DENIED
       );
     }
-    await removeBlog(blog);
+    if (req.file) {
+      blogPath =
+        `http://localhost:7000` +
+        req.media_details.file_path +
+        req.media_details.name;
+      await removeBlog(blog);
+    } else {
+      blogPath = blog.blogUrl;
+    }
     const data = {
       ...req.body,
       blogUrl: blogPath,
@@ -162,7 +167,7 @@ exports.updateBlog = async (req, res) => {
   }
 };
 
-exports.deleteBlog = async(req, res) => {
+exports.deleteBlog = async (req, res) => {
   try {
     const { user } = req;
     const { _id } = req.body;
@@ -195,4 +200,4 @@ exports.deleteBlog = async(req, res) => {
       serverResponseMessage.INTERNAL_SERVER_ERROR
     );
   }
-}
+};

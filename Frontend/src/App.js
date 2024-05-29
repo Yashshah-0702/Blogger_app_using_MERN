@@ -16,6 +16,7 @@ import CreateBlog from "./components/CreateBlog";
 import BlogList from "./components/MyBlogs";
 import BlogDetails from "./components/BlogDetails";
 import ChangePassword from "./components/ChangePassword";
+import UpdateBlog from "./components/UpdateBlog";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -41,7 +42,8 @@ const App = () => {
         <Route path="/createBlog" element={<CreateBlog />} />
         <Route path="/myBlogs" element={<BlogList />} />
         <Route path="/getBlog" element={<BlogDetails />} />
-        <Route path="/changePassword" element={<ChangePassword/>} />
+        <Route path="/changePassword" element={<ChangePassword />} />
+        <Route path="/updateBlog" element={<UpdateBlog />} />
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>

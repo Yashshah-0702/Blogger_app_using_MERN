@@ -57,10 +57,8 @@ const BlogList = () => {
           },
         }
       );
-      toast.success(response.data.message);
-      setTimeout(() => {
-        window.location.href = "/myBlogs";
-      }, 300);
+      window.location.href = "/myBlogs";
+      localStorage.setItem("blogDeleted", "true");
       return;
     } catch (error) {
       console.error("Error deleting the blog:", error);
@@ -89,6 +87,11 @@ const BlogList = () => {
             navigate("/login");
           }, 1000);
           return;
+        }
+        const deleteBlog = localStorage.getItem("blogDeleted");
+        if (deleteBlog) {
+          toast.success("Blog Deleted Successfully");
+          localStorage.removeItem("blogDeleted");
         }
         // toast.success(response.data.message);
         const sortedBlogs = response.data.data.sort(
@@ -183,7 +186,11 @@ const BlogList = () => {
                     >
                       Delete Blog
                     </button>{" "}
-                    <NavLink to="/updateBlog" className="btn btn-outline-dark">
+                    <NavLink
+                      to="/updateBlog"
+                      className="btn btn-outline-dark"
+                      onClick={() => handleViewDetails(blog._id)}
+                    >
                       Update Blog
                     </NavLink>
                   </div>
