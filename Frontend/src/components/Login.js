@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiKey } from "../config/api.config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       localStorage.clear();
-      const response = await axios.post("http://localhost:7000/user/login", {
+      const response = await axios.post(`${apiKey}/user/login`, {
         email,
         password,
       });
@@ -60,7 +61,9 @@ const Login = () => {
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="h5 bg-dark text-light py-3 rounded-3 h2 text-center">Login into blogging World:-</h2>
+          <h2 className="h5 bg-dark text-light py-3 rounded-3 h2 text-center">
+            Login into blogging World:-
+          </h2>
           <br></br>
           {/* <br></br> */}
           <div className="mb-3">

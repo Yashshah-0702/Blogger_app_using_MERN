@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
+import AboutUs from "./AboutUs";
+import ContactUs from "./ContactUs";
 
 export default function HomePage() {
   const [blogs, setBlogs] = useState([]);
@@ -38,7 +41,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:7000/blog/getBlogs");
+        const response = await axios.get(`${apiKey}/blog/getBlogs`);
         setBlogs(response.data.data);
       } catch (error) {
         toast.error("Server Error");
@@ -78,16 +81,19 @@ export default function HomePage() {
         {blogs && blogs.length > 0 ? (
           <>
             <h5 className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1">
-              Latest Blogs 📝
+              🄻🄰🅃🄴🅂🅃 🄱🄻🄾🄶🅂
             </h5>
             <br></br>
             <div className="">
               {/* <br></br> */}
               {blogs
-                .slice(-6)
+                .slice(-3)
                 .reverse()
                 .map((blog) => (
-                  <div key={blog._id} className="row bg-gradient border-bottom rounded-3 bg-body shadow mt-3 m-2">
+                  <div
+                    key={blog._id}
+                    className="row bg-gradient border-bottom rounded-3 bg-body shadow mt-3 m-2"
+                  >
                     <div className="col-md-4 col-lg-4 col-sm-12 p-lg-5 p-2 ">
                       <img
                         src={blog.blogUrl}
@@ -152,6 +158,12 @@ export default function HomePage() {
         ) : (
           <h1 className="text-center h1 text-muted">No Blogs Found</h1>
         )}
+        <div id="aboutUs">
+          <AboutUs />
+        </div>
+        <div id="contactUs">
+          <ContactUs />
+        </div>
       </div>
       <ToastContainer />
     </div>

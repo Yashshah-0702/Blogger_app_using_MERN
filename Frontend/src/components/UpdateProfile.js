@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ const UpdateProfile = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:7000/user/getProfile",
+        `${apiKey}/user/getProfile`,
         { id },
         {
           headers: {
@@ -87,7 +88,7 @@ const UpdateProfile = () => {
       }
 
       const response = await axios.patch(
-        "http://localhost:7000/user/updateProfile",
+        `${apiKey}/user/updateProfile`,
         formData,
         {
           headers: {
@@ -125,7 +126,9 @@ const UpdateProfile = () => {
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="bg-dark text-light py-3 rounded-3 text-center h5">Update Profile</h2>
+          <h2 className="bg-dark text-light py-3 rounded-3 text-center h5">
+            Update Profile
+          </h2>
           <div className="mb-3 mt-3">
             <label className="form-label">Email:</label>
             <input

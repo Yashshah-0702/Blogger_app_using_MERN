@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 
 function UserProfile() {
@@ -18,15 +19,12 @@ function UserProfile() {
       const id = localStorage.getItem("id");
       const token = localStorage.getItem("token");
 
-      const response = await axios.delete(
-        "http://localhost:7000/user/deleteProfile",
-        {
-          data: { id },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.delete(`${apiKey}/user/deleteProfile`, {
+        data: { id },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.data.message === "Profile deleted successfully") {
         toast.success("Profile deleted successfully");
@@ -59,7 +57,7 @@ function UserProfile() {
       }
       try {
         // Define the API endpoint
-        const apiUrl = "http://localhost:7000/user/getProfile";
+        const apiUrl = `${apiKey}/user/getProfile`;
 
         // Make a POST request to the API with ID in the request body
         const response = await axios.post(

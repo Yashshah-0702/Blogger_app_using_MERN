@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
@@ -43,17 +44,14 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "http://localhost:7000/user/signup/user",
-        {
-          first_name: firstName,
-          last_name: lastName,
-          user_name: userName,
-          bio,
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${apiKey}/user/signup/user`, {
+        first_name: firstName,
+        last_name: lastName,
+        user_name: userName,
+        bio,
+        email,
+        password,
+      });
 
       if (response.data.message === "Email already exists") {
         toast.error("User already exists. Please try again.");
@@ -80,8 +78,11 @@ const Signup = () => {
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="bg-dark text-light py-3 rounded-3 text-center h5"> Create a blogging profile :-</h2>
-          
+          <h2 className="bg-dark text-light py-3 rounded-3 text-center h5">
+            {" "}
+            Create a blogging profile :-
+          </h2>
+
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
             <input

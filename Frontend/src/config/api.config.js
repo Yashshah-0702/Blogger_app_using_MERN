@@ -1,3 +1,3 @@
 module.exports={
-    apiKey:"http://localhost:7000"
+    apiKey:"http://192.168.10.79:7000"
 }

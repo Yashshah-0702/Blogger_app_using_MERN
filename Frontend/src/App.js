@@ -17,6 +17,8 @@ import BlogList from "./components/MyBlogs";
 import BlogDetails from "./components/BlogDetails";
 import ChangePassword from "./components/ChangePassword";
 import UpdateBlog from "./components/UpdateBlog";
+import AboutUs from "./components/AboutUs";
+import AllBlogs from "./components/AllBlogs";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -31,6 +33,7 @@ const App = () => {
       <Navbar name={userName} /> <br></br> <br></br>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/allBlogs" element={<AllBlogs />} />
         <Route path="/userProfiles" element={<UserProfiles />} />
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/login" element={<Login />} />
@@ -44,6 +47,7 @@ const App = () => {
         <Route path="/getBlog" element={<BlogDetails />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/updateBlog" element={<UpdateBlog />} />
+        {/* <Route path="/aboutUs" element={<AboutUs />} /> */}
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>

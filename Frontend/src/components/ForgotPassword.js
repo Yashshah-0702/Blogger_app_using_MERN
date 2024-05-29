@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +16,9 @@ const ForgotPassword = () => {
     // setToken('');
 
     try {
-      const response = await axios.post(
-        "http://localhost:7000/user/forgotPassword",
-        { email }
-      );
+      const response = await axios.post(`${apiKey}/user/forgotPassword`, {
+        email,
+      });
       if (response.data.message === "User not found") {
         toast.error(response.data.message);
         return;

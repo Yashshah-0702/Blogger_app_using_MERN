@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiKey } from "../config/api.config";
 
 const UpdateBlog = () => {
   const [formData, setFormData] = useState({
@@ -29,10 +30,9 @@ const UpdateBlog = () => {
       }
       if (selectedBlogID) {
         try {
-          const response = await axios.post(
-            `http://localhost:7000/blog/getBlog`,
-            { _id: selectedBlogID }
-          );
+          const response = await axios.post(`${apiKey}/blog/getBlog`, {
+            _id: selectedBlogID,
+          });
           const { title, content } = response.data.data;
           //   const imageUrl = blogUrl ? blogUrl : null;
           setFormData((prevData) => ({
@@ -110,15 +110,11 @@ const UpdateBlog = () => {
     form.append("_id", formData._id);
 
     try {
-      const response = await axios.patch(
-        "http://localhost:7000/blog/updateBlog",
-        form,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.patch(`${apiKey}/blog/updateBlog`, form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.data.message === "Token expired") {
         toast.error("Session Expired. Please login again.");
         setTimeout(() => {

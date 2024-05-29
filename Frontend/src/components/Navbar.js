@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function Navbar({ name }) {
   const userType = localStorage.getItem("user_type");
   const token = localStorage.getItem("token");
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -19,7 +20,9 @@ export default function Navbar({ name }) {
     <nav className="navbar navbar-expand-lg navbar-dark opacity-40 bg-dark bg-gradient fw-bold">
       <div className="container-fluid px-5">
         <Link className="navbar-brand" to="/">
-          <h1 className="h4">Blogging World</h1>
+          <h1 className="h4" style={{ fontWeight: "900" }}>
+            Blogging World
+          </h1>
         </Link>
         <button
           className="navbar-toggler"
@@ -34,55 +37,67 @@ export default function Navbar({ name }) {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav me-auto">
-            <li className="nav-item h6">
+            <li className="nav-item h6" style={{ fontWeight: "700" }}>
               <Link className="nav-link " to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item h6" style={{ fontWeight: "700" }}>
+              <Link className="nav-link " to="/allBlogs">
                 All Blogs
               </Link>
             </li>
             {userType === "1" ? (
               <>
-                <li className="nav-item h6">
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
                   <Link className="nav-link" to="/userProfiles">
                     User Lists
                   </Link>
                 </li>
-                <li className="nav-item h6">
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
                   <Link className="nav-link" to="/myBlogs">
                     My Blogs
                   </Link>
                 </li>
               </>
             ) : (
-              <li className="nav-item h6">
+              <li className="nav-item h6" style={{ fontWeight: "700" }}>
                 <Link className="nav-link" to="/myBlogs">
                   My Blogs
                 </Link>
               </li>
             )}
             {token && (
-              <li className="nav-item h6">
+              <li className="nav-item h6" style={{ fontWeight: "700" }}>
                 <Link className="nav-link" to="/createBlog">
                   Create Blog
                 </Link>
               </li>
             )}
-            {userType === "2" && (
-              <li className="nav-item h6">
-                <Link className="nav-link" to="/aboutUs">
-                  About Us
-                </Link>
-              </li>
+            {userType === "2" && location.pathname === "/" && (
+              <>
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
+                  <a href="#aboutUs" className="nav-link">
+                    About Us
+                  </a>
+                </li>
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
+                  <a href="#contactUs" className="nav-link">
+                    Contact Us
+                  </a>
+                </li>
+              </>
             )}
           </ul>
           <ul className="navbar-nav ms-auto">
             {!token ? (
               <>
-                <li className="nav-item h6">
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
                   <Link className="nav-link" to="/login">
                     Login
                   </Link>
                 </li>
-                <li className="nav-item h6">
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
                   <Link className="nav-link" to="/signup/user">
                     Signup
                   </Link>
@@ -90,13 +105,13 @@ export default function Navbar({ name }) {
               </>
             ) : (
               <>
-                <li className="nav-item h6">
+                <li className="nav-item h6" style={{ fontWeight: "700" }}>
                   <Link className="nav-link" to="#" onClick={handleLogout}>
                     Logout
                   </Link>
                 </li>
                 {userType === "1" && (
-                  <li className="nav-item h6">
+                  <li className="nav-item h6" style={{ fontWeight: "700" }}>
                     <Link className="nav-link" to="/signup/admin">
                       Create a admin profile
                     </Link>
@@ -104,7 +119,7 @@ export default function Navbar({ name }) {
                 )}
               </>
             )}
-            <li className="nav-item h6">
+            <li className="nav-item h6" style={{ fontWeight: "700" }}>
               <Link className="nav-link" to="/userProfile">
                 <span className="bg-light rounded-circle">🙎🏻‍♂️</span>
                 {"  "}

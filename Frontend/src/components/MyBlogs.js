@@ -48,15 +48,12 @@ const BlogList = () => {
     }
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        "http://localhost:7000/blog/deleteBlog",
-        {
-          data: { _id: id },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.delete(`${apiKey}/blog/deleteBlog`, {
+        data: { _id: id },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       window.location.href = "/myBlogs";
       localStorage.setItem("blogDeleted", "true");
       return;
@@ -111,7 +108,7 @@ const BlogList = () => {
       {/* <br></br> */}
       {blogs && blogs.length > 0 ? (
         <>
-          <h4 className="h4 text-center py-3 bg-dark bg-gradient mx-1 rounded-3 text-light">
+          <h4 className="h4 text-center py-2 bg-dark bg-gradient mx-1 rounded-3 text-light">
             Your Blogs
           </h4>
           <br></br>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 
 const UserProfiles = () => {
@@ -22,14 +23,11 @@ const UserProfiles = () => {
         }
 
         // Fetch profiles with authentication token
-        const response = await axios.get(
-          "http://localhost:7000/user/getProfiles",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${apiKey}/user/getProfiles`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.data.message === "Invalid token") {
           toast.error("Please Login Again");
@@ -56,7 +54,7 @@ const UserProfiles = () => {
   }, [navigate]);
 
   const truncateBio = (bio) => {
-    return bio.length > 3 ? bio.substring(0,15) + "..." : bio;
+    return bio.length > 3 ? bio.substring(0, 15) + "..." : bio;
   };
 
   return (

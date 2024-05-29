@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiKey } from "../config/api.config";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const ResetPassword = () => {
@@ -39,7 +40,7 @@ const ResetPassword = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:7000/user/resetPassword",
+        `${apiKey}/user/resetPassword`,
         {
           secretCode,
           password,

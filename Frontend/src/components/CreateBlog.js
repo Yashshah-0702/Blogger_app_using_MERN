@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiKey } from "../config/api.config";
 
 export default function CreateBlog() {
   const [title, setTitle] = useState("");
@@ -71,7 +72,7 @@ export default function CreateBlog() {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/blog/createBlog",
+        `${apiKey}/blog/createBlog`,
         formData,
         {
           headers: {
