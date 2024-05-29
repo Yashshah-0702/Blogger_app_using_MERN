@@ -45,7 +45,7 @@ const UpdateBlog = () => {
           //     setExistingImage(imageUrl);
           //   }
         } catch (error) {
-          console.error("Error fetching blog details:", error);
+          toast.error("Server error");
         }
       }
     };

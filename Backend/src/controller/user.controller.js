@@ -186,15 +186,13 @@ exports.updateProfile = async (req, res) => {
     const { user } = req;
     // let { password } = req.body;
     let data = { ...req.body };
+    let userId = user.id;
+    if (user.user_type === 1) {
+      userId = req.body.id;
+    }
 
-    // if (password) {
-    //   const hashedPassword = await bcrypt.hash(password, 10);
-    //   data.password = hashedPassword; // Update data with hashed password
-    // }
-
-    // Use findOneAndUpdate to find the user by ID and update the fields
     const updatedUser = await User.findOneAndUpdate(
-      { _id: user.id },
+      { _id: userId },
       { $set: data },
       { new: true }
     );
@@ -227,8 +225,12 @@ exports.updateProfile = async (req, res) => {
 exports.deleteProfile = async (req, res) => {
   try {
     const { user } = req;
+    let userId = user.id;
+    if (user.user_type === 1) {
+      userId = req.body.id;
+    }
     const deleteUser = await User.findOneAndDelete(
-      { _id: user.id },
+      { _id: userId },
       { new: true }
     );
     return success(
@@ -336,7 +338,7 @@ exports.resetPassword = async (req, res) => {
 exports.changePassword = async (req, res) => {
   try {
     const { user } = req;
-    console.log(user)
+    console.log(user);
     const { oldPassword, password, confirmPassword } = req.body;
     const comparePassword = await bcrypt.compare(oldPassword, user.password);
     if (!comparePassword) {
@@ -367,7 +369,6 @@ exports.changePassword = async (req, res) => {
       serverResponseMessage.PASSWORD_CHANGED_SUCCESSFULLY,
       updatedUser
     );
-
   } catch (error) {
     return failure(
       res,
