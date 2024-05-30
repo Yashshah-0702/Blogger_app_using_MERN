@@ -42,3 +42,56 @@ exports.createEnquiry = async (req, res) => {
     );
   }
 };
+
+exports.getEnquiries = async (req, res) => {
+  try {
+    const { user } = req;
+    if (user.user_type === 2) {
+      return failure(
+        res,
+        httpsStatusCodes.ACCESS_DENIED,
+        serverResponseMessage.ACCESS_DENIED
+      );
+    }
+    const response = await Enquiry.find();
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.ENQUIRY_FETCHED_SUCCESSFULLY,
+      response
+    );
+  } catch (error) {
+    return failure(
+      res,
+      httpsStatusCodes.INTERNAL_SERVER_ERROR,
+      serverResponseMessage.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
+exports.deleteEnquiries = async (req, res) => {
+  try {
+    const { user } = req;
+    const { _id } = req.body;
+    if (user.user_type === 2) {
+      return failure(
+        res,
+        httpsStatusCodes.ACCESS_DENIED,
+        serverResponseMessage.ACCESS_DENIED
+      );
+    }
+    const response = await Enquiry.findByIdAndDelete(_id);
+    return success(
+      res,
+      httpsStatusCodes.SUCCESS,
+      serverResponseMessage.ENQUIRY_DELETED_SUCCESSFULLY,
+      response
+    );
+  } catch (error) {
+    return failure(
+      res,
+      httpsStatusCodes.INTERNAL_SERVER_ERROR,
+      serverResponseMessage.INTERNAL_SERVER_ERROR
+    );
+  }
+};

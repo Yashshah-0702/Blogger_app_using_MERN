@@ -35,6 +35,8 @@ const serverResponseMessage = {
 
   /*Enquiry */
   ENQUIRY_CREATED_SUCCESSFULLY: "Enquiry created successfully",
+  ENQUIRY_FETCHED_SUCCESSFULLY: "Enquiry fetched successfully",
+  ENQUIRY_DELETED_SUCCESSFULLY: "Enquiry deleted successfully",
 
   /* Catch Error */
   INTERNAL_SERVER_ERROR: "Internal Server Error",
