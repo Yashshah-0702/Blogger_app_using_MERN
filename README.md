@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Blogging App]
+# Getting Started with Blogging App
 
 ## Project Setup
 For Project Setup you can follow this steps :
