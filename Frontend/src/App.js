@@ -17,9 +17,9 @@ import BlogList from "./components/MyBlogs";
 import BlogDetails from "./components/BlogDetails";
 import ChangePassword from "./components/ChangePassword";
 import UpdateBlog from "./components/UpdateBlog";
-import AboutUs from "./components/AboutUs";
 import AllBlogs from "./components/AllBlogs";
 import GetEnquiry from "./components/GetEnquiry";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -52,6 +52,7 @@ const App = () => {
         {/* <Route path="/aboutUs" element={<AboutUs />} /> */}
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
