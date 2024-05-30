@@ -19,6 +19,7 @@ import ChangePassword from "./components/ChangePassword";
 import UpdateBlog from "./components/UpdateBlog";
 import AboutUs from "./components/AboutUs";
 import AllBlogs from "./components/AllBlogs";
+import GetEnquiry from "./components/GetEnquiry";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/getBlog" element={<BlogDetails />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/updateBlog" element={<UpdateBlog />} />
+        <Route path="/userEnquiries" element={<GetEnquiry />} />
         {/* <Route path="/aboutUs" element={<AboutUs />} /> */}
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>

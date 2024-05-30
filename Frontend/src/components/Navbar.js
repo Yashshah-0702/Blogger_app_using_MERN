@@ -47,20 +47,26 @@ export default function Navbar({ name }) {
                 All Blogs
               </Link>
             </li>
-            {userType === "1" ? (
-              <>
-                <li className="nav-item h6" style={{ fontWeight: "700" }}>
-                  <Link className="nav-link" to="/userProfiles">
-                    User Lists
-                  </Link>
-                </li>
-                <li className="nav-item h6" style={{ fontWeight: "700" }}>
-                  <Link className="nav-link" to="/myBlogs">
-                    My Blogs
-                  </Link>
-                </li>
-              </>
-            ) : (
+            {token && userType === "1" && (
+                  <>
+                    <li className="nav-item h6" style={{ fontWeight: "700" }}>
+                      <Link className="nav-link" to="/userProfiles">
+                        User Lists
+                      </Link>
+                    </li>
+                    <li className="nav-item h6" style={{ fontWeight: "700" }}>
+                      <Link className="nav-link" to="/userEnquiries">
+                        User Enquiries
+                      </Link>
+                    </li>
+                    <li className="nav-item h6" style={{ fontWeight: "700" }}>
+                      <Link className="nav-link" to="/myBlogs">
+                        My Blogs
+                      </Link>
+                    </li>
+                  </>
+                )}
+            {token && userType === "2" && (
               <li className="nav-item h6" style={{ fontWeight: "700" }}>
                 <Link className="nav-link" to="/myBlogs">
                   My Blogs
