@@ -80,8 +80,9 @@ export default function HomePage() {
       <div className="">
         {blogs && blogs.length > 0 ? (
           <>
-            <h5 className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1">
-              🄻🄰🅃🄴🅂🅃 🄱🄻🄾🄶🅂
+            <h5 className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1" style={{fontWeight:"1000"}}>
+              LATEST BLOGS
+              {/* 🄻🄰🅃🄴🅂🅃 🄱🄻🄾🄶🅂 */}
             </h5>
             <br></br>
             <div className="">

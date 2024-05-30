@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 exports.signUp = async (req, res) => {
   try {
     let { user } = req.params;
-    let { password } = req.body;
+    let { password, first_name, last_name } = req.body;
     let userType = 2;
     if (user === "admin") {
       userType = 1;
@@ -24,11 +24,17 @@ exports.signUp = async (req, res) => {
         );
       }
       subject = "welcome to blogging world";
-      text = `<h1>Welcome to Blogging World</h1> <br> 
+      text = `<h1>Dear ${
+        first_name.toUpperCase() + " " + last_name.toUpperCase()
+      } ,</h1>
+      <h1>Welcome to Blogging World </h1> <br> 
       <h2>Your account has been created on blogging world.</h2> 
-      <p>Your new password is: ${password}.</p>
-      <p>You can <a href="http://192.168.10.79:3000/login">login</a> now </p> 
-      <p>you can change your password after login from our website.</p>`;
+      <h4>Your new password is: ${password}.</h4>
+      <h4>You can <a href="http://192.168.10.79:3000/login">login</a> now </h4> 
+      <h4>you can change your password after login from our website.</h4>
+      <h4>Best regards, <br>
+      Blogging World Team</h4>
+      `;
       emailQueue.add({ email: req.body.email, subject, text });
     }
     let encryptPassword = await bcrypt.hash(password, 10);
@@ -261,9 +267,12 @@ exports.forgotPassword = async (req, res) => {
       );
     }
     subject = "Password Reset";
-    text = `<p>You are requested to reset the password </p> 
-    <p> Your secret code is: ${secretCode} </p> 
-    <p> If you did not request a password reset, please ignore this email. </p>`;
+    text = `<h4>You are requested to reset the password </h4> 
+    <h4> Your secret code is: ${secretCode} </h4> 
+    <h4>Don't Share this secret code with anyone.</h4>
+    <h4> If you did not request a password reset, please ignore this email. </h4>
+    <h4>Best regards, <br>
+    Blogging World Team</h4>`;
     await emailQueue.add({ email, subject, text });
     const token = jwt.sign(
       {

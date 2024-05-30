@@ -33,6 +33,9 @@ const serverResponseMessage = {
   BLOG_UPDATED_SUCCESSFULLY: "Blog updated successfully",
   BLOG_DELETED_SUCCESSFULLY: "Blog deleted successfully",
 
+  /*Enquiry */
+  ENQUIRY_CREATED_SUCCESSFULLY: "Enquiry created successfully",
+
   /* Catch Error */
   INTERNAL_SERVER_ERROR: "Internal Server Error",
   TOKEN_EXPIRED: "Token expired",

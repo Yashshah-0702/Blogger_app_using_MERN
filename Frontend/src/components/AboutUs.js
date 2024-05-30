@@ -2,20 +2,18 @@ import React from "react";
 
 export default function AboutUs() {
   return (
-    <div>
-      <h1
-        className="my-5 text-center bg-dark text-white pt-5 bg-gradient rounded-3 border-top border-3 border-light"
-        style={{ height: "150px" }}
-      >
-        🄰🄱🄾🅄🅃 🅄🅂
+    <div className="m-2 bg-body rounded-3 shadow">
+      <h1 className="h5 my-5 text-center bg-dark text-white py-2 bg-gradient rounded-top" style={{fontWeight:"1000"}}>
+        ABOUT US
+        {/* 🄰🄱🄾🅄🅃 🅄🅂 */}
       </h1>
-      <p className="text-center container h-auto" style={{ height: "200px" }}>
-        【﻿Ｗｅ　ｌｏｖｅ　Ｗｅｂ　Ｄｅｓｉｇｎ　＆　Ｔｅｃｈｎｏｌｏｇｙ．
-        <br></br>
-        　Ｗｅ　ａｒｅ　ａ　ｓｍａｌｌ　ｔｅａｍ，　ｂｕｔ　ｗｅ　ｐｏｓｓｅｓｓ　ａ　ｈｉｇｈｌｙ　ｓｋｉｌｌｅｄ　ｗｏｒｋ　ｆｏｒｃｅ．
-        <br></br>
-        　Ｏｕｒ　ｇｏａｌ　ｉｓ　ｔｏ　ｐｒｏｄｕｃｅ　ｇｒｅａｔ　ｗｏｒｋ　ｗｉｔｈ　ｐｏｓｉｔｉｖｅ　ｅｎｅｒｇｙ．
-        <br></br>　Ｌｅｔ’ｓ　ｅｎｊｏｙ　ｃｒｅａｔｉｎｇ　ｔｏｇｅｔｈｅｒ．】
+      <p
+        className="mt-5 pb-5 text-center container h-auto"
+        style={{ height: "200px" }}
+      >
+        We love Web Design & Technology.<br></br> We are a small team, but we
+        possess a highly skilled work force. <br></br>Our goal is to produce
+        great work with positive energy. <br></br>Let’s enjoy creating together.
       </p>
     </div>
   );
