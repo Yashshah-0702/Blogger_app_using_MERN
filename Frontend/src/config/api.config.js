@@ -1,3 +1,4 @@
 module.exports={
-    apiKey:"http://192.168.10.79:7000"
+    apiKey:"http://localHost:7000"
+    // apiKey:"https://blogger-app-backend-764h.onrender.com"
 }

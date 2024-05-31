@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import ClipLoader from "react-spinners/ClipLoader";
 import "react-toastify/dist/ReactToastify.css";
 import { apiKey } from "../config/api.config";
 
@@ -9,7 +10,7 @@ export default function CreateBlog() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
-  //   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ export default function CreateBlog() {
       }, 1000);
       return;
     }
-  }, []);
+  }, [navigate, token]);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -49,7 +50,7 @@ export default function CreateBlog() {
       return;
     }
     if (typeof content !== "string" || content.length < 300) {
-      toast.error("Content must be a string and minimum of 300.");
+      toast.error("Content must be a string and minimum of 300 characters.");
       return;
     }
     if (image) {
@@ -70,6 +71,8 @@ export default function CreateBlog() {
     formData.append("content", content);
     formData.append("upload_file", image);
 
+    setLoading(true);
+
     try {
       const response = await axios.post(
         `${apiKey}/blog/createBlog`,
@@ -81,6 +84,9 @@ export default function CreateBlog() {
           },
         }
       );
+
+      setLoading(false);
+
       if (response.data.message === "Token expired") {
         toast.error("Session Expired. Please login again.");
         setTimeout(() => {
@@ -93,16 +99,20 @@ export default function CreateBlog() {
       setTimeout(() => {
         navigate("/");
       }, 1000);
-      console.log(response.data);
     } catch (error) {
+      setLoading(false);
       toast.error("Failed to create blog.");
-      //   setMessage("Failed to create blog.");
     }
   };
 
   return (
     <div className="container">
-      <br></br>
+      {loading && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={loading} />
+        </div>
+      )}
+      <br />
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4 ">
           <div className="text-center rounded-3 py-2 text-light bg-dark">
@@ -118,8 +128,6 @@ export default function CreateBlog() {
               </span>
             </p>
           </div>
-          {/* <br></br>
-          <br></br> */}
           <div className="mb-3 mt-3">
             <label className="form-label">Title</label>
             <input
@@ -151,14 +159,28 @@ export default function CreateBlog() {
               required
             />
           </div>
-          <div className="text-center mt-2 ">
-            <button className="btn btn-outline-dark btn-md" type="submit">
+          <div className="text-center mt-2">
+            <button className="btn btn-outline-dark btn-md" type="submit" disabled={loading}>
               Submit
             </button>
           </div>
         </div>
       </form>
       <ToastContainer />
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
     </div>
   );
 }

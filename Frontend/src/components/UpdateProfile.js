@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
+import { ClipLoader } from "react-spinners";
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const UpdateProfile = () => {
     bio: "",
     user_name: "",
   });
+  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
 
   const fetchProfileData = async () => {
@@ -48,6 +50,8 @@ const UpdateProfile = () => {
       setFormData(profileData);
     } catch (error) {
       toast.error("Server Error");
+    } finally {
+      setLoading(false); // Set loading to false after fetch is complete
     }
   };
 
@@ -114,13 +118,6 @@ const UpdateProfile = () => {
     }
   };
 
-  // Check if formData exists before accessing its properties
-  const email = formData ? formData.email : "";
-  const first_name = formData ? formData.first_name : "";
-  const last_name = formData ? formData.last_name : "";
-  const bio = formData ? formData.bio : "";
-  const user_name = formData ? formData.user_name : "";
-
   return (
     <div className="container">
       <br></br>
@@ -129,61 +126,69 @@ const UpdateProfile = () => {
           <h2 className="bg-dark text-light py-3 rounded-3 text-center h5">
             Update Profile
           </h2>
-          <div className="mb-3 mt-3">
-            <label className="form-label">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              className="form-control"
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3 mt-3">
-            <label className="form-label">First Name:</label>
-            <input
-              type="text"
-              name="first_name"
-              value={first_name}
-              className="form-control"
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3 mt-3">
-            <label className="form-label">Last Name:</label>
-            <input
-              type="text"
-              name="last_name"
-              value={last_name}
-              className="form-control"
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3 mt-3">
-            <label className="form-label">Username:</label>
-            <input
-              type="text"
-              name="user_name"
-              value={user_name}
-              className="form-control"
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3 mt-3">
-            <label className="form-label">Bio:</label>
-            <textarea
-              className="form-control"
-              rows="3"
-              name="bio"
-              placeholder="Bio"
-              value={bio}
-              onChange={handleChange}
-            />
-          </div>
+          {loading ? (
+            <div className="text-center my-5">
+              <ClipLoader size={50} color={"black"} loading={loading} />
+            </div> // Display loading text while fetching data
+          ) : (
+            <>
+              <div className="mb-3 mt-3">
+                <label className="form-label">Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  className="form-control"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3 mt-3">
+                <label className="form-label">First Name:</label>
+                <input
+                  type="text"
+                  name="first_name"
+                  value={formData.first_name}
+                  className="form-control"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3 mt-3">
+                <label className="form-label">Last Name:</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  value={formData.last_name}
+                  className="form-control"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3 mt-3">
+                <label className="form-label">Username:</label>
+                <input
+                  type="text"
+                  name="user_name"
+                  value={formData.user_name}
+                  className="form-control"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3 mt-3">
+                <label className="form-label">Bio:</label>
+                <textarea
+                  className="form-control"
+                  rows="3"
+                  name="bio"
+                  placeholder="Bio"
+                  value={formData.bio}
+                  onChange={handleChange}
+                />
+              </div>
+            </>
+          )}
         </div>
         <div className="text-center mb-5">
           <button className="btn btn-outline-dark btn-md" type="submit">

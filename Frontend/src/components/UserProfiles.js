@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
+import { ClipLoader } from "react-spinners";
 
 const UserProfiles = () => {
   const [profiles, setProfiles] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,6 +49,8 @@ const UserProfiles = () => {
         setProfiles(response.data.data); // Set profiles state
       } catch (error) {
         toast.error("Error fetching profiles:");
+      } finally {
+        setLoading(false); // Set loading to false after fetch is complete
       }
     };
 
@@ -60,7 +64,11 @@ const UserProfiles = () => {
   return (
     <>
       <div>
-        {profiles && profiles.length > 0 ? (
+        {loading ? ( // Display loading text while fetching data
+          <div className="text-center my-5">
+            <ClipLoader size={50} color={"black"} loading={loading} />
+          </div>
+        ) : profiles && profiles.length > 0 ? (
           <>
             <table className="p-2 text-center table table-hover">
               <thead>
@@ -87,9 +95,6 @@ const UserProfiles = () => {
                       {profile.bio
                         ? truncateBio(profile.bio)
                         : "User has no bio"}
-                      {/* {profile.bio === "" || !profile.bio
-                        ? "User has no bio"
-                        : profile.bio} */}
                     </td>
                   </tr>
                 ))}

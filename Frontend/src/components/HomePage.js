@@ -5,10 +5,13 @@ import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
+import { ClipLoader } from "react-spinners";
 
 export default function HomePage() {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
 
@@ -45,6 +48,8 @@ export default function HomePage() {
         setBlogs(response.data.data);
       } catch (error) {
         toast.error("Server Error");
+      } finally {
+        setLoading(false); // Set loading to false after fetch is complete
       }
     };
     fetchBlogs();
@@ -78,9 +83,16 @@ export default function HomePage() {
       </div>
       <br></br>
       <div className="">
-        {blogs && blogs.length > 0 ? (
+        {loading ? (
+          <div className="text-center my-5">
+            <ClipLoader size={50} color={"black"} loading={loading} />
+          </div> // Display loading text while fetching data
+        ) : blogs && blogs.length > 0 ? (
           <>
-            <h5 className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1" style={{fontWeight:"1000"}}>
+            <h5
+              className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1"
+              style={{ fontWeight: "1000" }}
+            >
               LATEST BLOGS
               {/* 🄻🄰🅃🄴🅂🅃 🄱🄻🄾🄶🅂 */}
             </h5>

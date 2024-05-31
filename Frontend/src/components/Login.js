@@ -3,21 +3,28 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       localStorage.clear();
       const response = await axios.post(`${apiKey}/user/login`, {
         email,
         password,
       });
+
+      setLoading(false);
+
       if (response.data.message === "Invalid credentials") {
         toast.error("Invalid credentials");
       } else {
@@ -37,7 +44,7 @@ const Login = () => {
 
         toast.success("Login successful");
 
-        // window.location.reload();
+        // Redirect based on user_type
         if (user_type === 1) {
           setTimeout(() => (window.location.href = "/userProfiles"), 350);
         } else {
@@ -47,6 +54,7 @@ const Login = () => {
         }
       }
     } catch (err) {
+      setLoading(false);
       toast.error("Login failed. Please check your credentials.");
     }
   };
@@ -57,15 +65,18 @@ const Login = () => {
 
   return (
     <div className="container">
-      {" "}
-      <br></br>
+      <br />
+      {loading && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={loading} />
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
           <h2 className="h5 bg-dark text-light py-3 rounded-3 h2 text-center">
             Login into blogging World:-
           </h2>
-          <br></br>
-          {/* <br></br> */}
+          <br />
           <div className="mb-3">
             <label className="form-label">Email:</label>
             <input
@@ -99,7 +110,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <br></br>
+        <br />
         <div className="text-center">
           <p>
             {" "}
@@ -108,19 +119,37 @@ const Login = () => {
               <NavLink to="/forgotPassword"> Forgot Password </NavLink>
             </span>
           </p>{" "}
-          <button className="btn btn-outline-dark btn-md" type="submit">
+          <button
+            className="btn btn-outline-dark btn-md"
+            type="submit"
+            disabled={loading}
+          >
             Login
           </button>
-          <br></br> <br></br>
+          <br /> <br />
           <p>
             Don't have an account then{"   "}
             <span>
               <NavLink to="/signup/user">Sign-up</NavLink>
             </span>
           </p>{" "}
-          <br></br>
+          <br />
         </div>
       </form>
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
       <ToastContainer />
     </div>
   );

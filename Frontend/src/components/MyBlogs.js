@@ -3,9 +3,11 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
+import { ClipLoader } from "react-spinners";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const formatDate = (dateString) => {
@@ -71,6 +73,7 @@ const BlogList = () => {
           setTimeout(() => {
             navigate("/login");
           }, 1000);
+          setLoading(false);
           return;
         }
         const response = await axios.get(`${apiKey}/blog/myBlog`, {
@@ -97,6 +100,8 @@ const BlogList = () => {
         setBlogs(sortedBlogs);
       } catch (error) {
         toast.error("Server Error");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -106,7 +111,11 @@ const BlogList = () => {
   return (
     <div className="px-lg-5">
       {/* <br></br> */}
-      {blogs && blogs.length > 0 ? (
+      {loading ? (
+        <div className="text-center my-5">
+          <ClipLoader size={50} color={"black"} loading={loading} />
+        </div>
+      ) : blogs && blogs.length > 0 ? (
         <>
           <h4 className="h4 text-center py-2 bg-dark bg-gradient mx-1 rounded-3 text-light">
             Your Blogs

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
 
 const Signup = () => {
@@ -10,10 +11,12 @@ const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (firstName.length < 2 || firstName.length > 20) {
       toast.error("First Name must be between 2 and 20 characters.");
       return;
@@ -30,6 +33,9 @@ const Signup = () => {
       toast.error("Email must be between 3 and 50 characters.");
       return;
     }
+
+    setLoading(true);
+    
     try {
       const response = await axios.post(`${apiKey}/user/signup/admin`, {
         first_name: firstName,
@@ -38,27 +44,34 @@ const Signup = () => {
         email,
       });
 
+      setLoading(false);
+
       if (response.data.message === "Email already exists") {
         toast.error(response.data.message);
       } else {
-        toast.success("Admin Profile Created Succesfully");
+        toast.success("Admin Profile Created Successfully");
         setTimeout(() => {
-          navigate("/userProfiles"); // Redirect to home page
+          navigate("/userProfiles");
         }, 1000);
       }
     } catch (err) {
+      setLoading(false);
       toast.error("Signup failed. Please try again.");
     }
   };
 
   return (
     <div className="container">
-      <br></br>
+      {loading && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={loading} />
+        </div>
+      )}
+      <br />
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
           <h2 className="h5 bg-dark text-light py-3 text-center rounded-3">
-            {" "}
-            Create a Admin profile :-
+            Create an Admin profile:
           </h2>
           <div className="mb-3 mt-3">
             <label className="form-label">FirstName:</label>
@@ -106,13 +119,27 @@ const Signup = () => {
           </div>
         </div>
         <div className="mt-2 text-center">
-          <button className="btn btn-outline-dark btn-md" type="submit">
+          <button className="btn btn-outline-dark btn-md" type="submit" disabled={loading}>
             Submit
           </button>
         </div>
-        <br></br>
+        <br />
       </form>
       <ToastContainer />
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
     </div>
   );
 };

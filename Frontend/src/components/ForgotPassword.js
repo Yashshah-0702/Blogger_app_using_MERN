@@ -2,50 +2,54 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  //   const [token, setToken] = useState('');
-  //   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setError('');
-    // setToken('');
+    setLoading(true);
 
     try {
       const response = await axios.post(`${apiKey}/user/forgotPassword`, {
         email,
       });
+
+      setLoading(false);
+
       if (response.data.message === "User not found") {
         toast.error(response.data.message);
         return;
       }
+
       localStorage.setItem("resettoken", response.data.data);
       toast.success(response.data.message);
       setTimeout(() => {
         navigate("/resetPassword");
       }, 1000);
-
-      //   setToken(response.data.token);
     } catch (err) {
+      setLoading(false);
       toast.error("Server error");
     }
   };
 
   return (
     <div className="container">
-      {" "}
-      <br></br>
+      <br />
+      {loading && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={loading} />
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="h5 bg-dark text-light rounded-3 py-3 text-center ">
+          <h2 className="h5 bg-dark text-light rounded-3 py-3 text-center">
             Forgot Password
           </h2>
-          {/* <br></br> */}
-          {/* <br></br> */}
           <div className="mb-3">
             <label className="form-label">Email:</label>
             <input
@@ -62,12 +66,27 @@ const ForgotPassword = () => {
             className="btn btn-outline-dark btn-md"
             type="submit"
             style={{ padding: "0.5em 1em" }}
+            disabled={loading}
           >
             Proceed
           </button>
         </div>
-        <br></br>
+        <br />
       </form>
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
       <ToastContainer />
     </div>
   );

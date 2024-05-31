@@ -4,9 +4,17 @@
 For Project Setup you can follow this steps :
 
 ## For Backend
-go into backend directory and run npm i.
+Go into backend directory and run npm i.
 It will download all libraries and modules required for backend 
 Then change the mongoDB database url path in config folder in database.config.js file.
+
+## make a file named .env
+Fill this fields with your urls and values
+MONGO_URL=
+JWT_SECRET=
+TOKEN_EXPIRY=
+RESET_PASSWORD_SECRET=
+RESET_PASSWORD_TOKEN_EXPIRATION=
 
 ### `npm start`
 Run this command to start backend and then go to frontend directory.

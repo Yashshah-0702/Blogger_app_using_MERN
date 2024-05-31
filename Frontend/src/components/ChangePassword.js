@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
 
 const ChangePassword = () => {
@@ -12,6 +13,7 @@ const ChangePassword = () => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ const ChangePassword = () => {
 
   const handleChangePassword = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(
@@ -37,6 +40,9 @@ const ChangePassword = () => {
           },
         }
       );
+
+      setLoading(false);
+
       if (!token) {
         toast.error("Please login for this functionality");
         setTimeout(() => {
@@ -70,6 +76,7 @@ const ChangePassword = () => {
         navigate("/userProfile");
       }, 1000);
     } catch (error) {
+      setLoading(false);
       toast.error("Server Error");
     }
   };
@@ -88,6 +95,11 @@ const ChangePassword = () => {
 
   return (
     <div className="container mt-5">
+      {loading && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={loading} />
+        </div>
+      )}
       <form onSubmit={handleChangePassword}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
           <h2 className="h5 bg-dark text-light py-3 text-center rounded-3">
@@ -159,12 +171,26 @@ const ChangePassword = () => {
           </div>
         </div>
         <div className="text-center">
-          <button className="btn btn-outline-dark btn-md" type="submit">
+          <button className="btn btn-outline-dark btn-md" type="submit" disabled={loading}>
             Change Password
           </button>
         </div>
       </form>
       <ToastContainer />
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
     </div>
   );
 };

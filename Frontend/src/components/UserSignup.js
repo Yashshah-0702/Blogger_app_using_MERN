@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
+import { ClipLoader } from "react-spinners";
 
 const Signup = () => {
   const [userName, setUserName] = useState("");
@@ -12,6 +13,7 @@ const Signup = () => {
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -21,6 +23,7 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (firstName.length < 2 || firstName.length > 20) {
       toast.error("First Name must be between 2 and 20 characters.");
       return;
@@ -52,6 +55,7 @@ const Signup = () => {
         email,
         password,
       });
+      setLoading(false);
 
       if (response.data.message === "Email already exists") {
         toast.error("User already exists. Please try again.");
@@ -65,6 +69,7 @@ const Signup = () => {
         }, 1000);
       }
     } catch (err) {
+      setLoading(false);
       toast.error("Signup failed. Please try again.");
     }
   };
@@ -75,6 +80,11 @@ const Signup = () => {
 
   return (
     <div className="container">
+      {loading && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={loading} />
+        </div>
+      )}
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
@@ -174,6 +184,20 @@ const Signup = () => {
           </p>
         </div>
       </form>
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
       <ToastContainer />
     </div>
   );

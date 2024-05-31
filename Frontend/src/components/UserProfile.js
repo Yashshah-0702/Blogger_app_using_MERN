@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
+import { ClipLoader } from "react-spinners";
 
 function UserProfile() {
   const handleDeleteProfile = async () => {
@@ -42,6 +43,7 @@ function UserProfile() {
   };
 
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,7 +54,8 @@ function UserProfile() {
         toast.error("Please login for this functionality");
         setTimeout(() => {
           navigate("/login");
-        }, 1000); // 1-second delay
+        }, 1000);
+        setLoading(false); // 1-second delay
         return;
       }
       try {
@@ -98,6 +101,8 @@ function UserProfile() {
       } catch (error) {
         // Handle errors
         toast.error("There was a problem with the fetch operation:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetch is complete
       }
     };
 
@@ -155,7 +160,9 @@ function UserProfile() {
           </div>
         </div>
       ) : (
-        <p>Loading...</p>
+        <div className="text-center my-5">
+          <ClipLoader size={50} color={"black"} loading={loading} />
+        </div>
       )}
       <ToastContainer />
     </div>

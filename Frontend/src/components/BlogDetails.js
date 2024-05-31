@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
+import { ClipLoader } from "react-spinners";
 
 function BlogDetails() {
   const [blogDetails, setBlogDetails] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
 
@@ -34,6 +37,7 @@ function BlogDetails() {
       try {
         const blogId = localStorage.getItem("selectedBlogId");
         if (!blogId) {
+          setLoading(false); // Set loading to false if no blogId is found
           return;
         }
 
@@ -43,6 +47,8 @@ function BlogDetails() {
         setBlogDetails(response.data.data);
       } catch (error) {
         toast.error("server error");
+      } finally {
+        setLoading(false); // Set loading to false after fetch is complete
       }
     };
 
@@ -51,27 +57,38 @@ function BlogDetails() {
 
   return (
     <div className="container">
-      <br></br>
-      {blogDetails && (
+      <br />
+      {loading ? (
+        <div className="text-center my-5">
+          <ClipLoader size={50} color={"black"} loading={loading} />
+        </div> // Display loading text while fetching data
+      ) : blogDetails ? (
         <div className="card shadow p-lg-4 p-2 mb-4" key={blogDetails._id}>
           <img
             src={blogDetails.blogUrl}
             alt={blogDetails.title}
-            style={{ width: "100%", height: "50%" }}
+            className="card-img-top justify-content-center"
+            style={{
+              objectFit: "cover",
+              height: "auto",
+              width: "100%",
+              maxHeight: "400px",
+            }}
+            // style={{  height: "350px" , width:"100%" }}
           />
-          <br></br>
+          <br />
           <div className="m-lg-5 card-body">
             <h3 className="d-lg-visible">{blogDetails.title}</h3>
-            <br></br>
+            <br />
             <h5 className="h5 text-muted">{blogDetails.content}</h5>
-            <br></br>
-            <p className=" card-text">
+            <br />
+            <p className="card-text">
               Author:-
               <small className="text-muted text-decoration-underline">
                 {blogDetails.author.toUpperCase()}
               </small>
             </p>
-            <p className=" card-text">
+            <p className="card-text">
               Publication Date:-
               <small className="text-muted">
                 {formatDate(blogDetails.Publication_date)}
@@ -79,6 +96,8 @@ function BlogDetails() {
             </p>
           </div>
         </div>
+      ) : (
+        <p>No blog details found</p>
       )}
       <ToastContainer />
     </div>

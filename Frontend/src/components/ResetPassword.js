@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiKey } from "../config/api.config";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import { ClipLoader } from "react-spinners";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ const ResetPassword = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // State variable for form submission
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +23,7 @@ const ResetPassword = () => {
       [name]: value,
     });
   };
+
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\W).{8,20}$/;
     return passwordRegex.test(password);
@@ -29,13 +31,14 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true); // Start form submission
     const { secretCode, password, confirmPassword } = formData;
     const token = localStorage.getItem("resettoken");
     if (!validatePassword(password)) {
       toast.error(
         "Password must be 8-20 characters long, include at least one special character, and one uppercase character."
       );
+      setIsSubmitting(false); // Stop form submission
       return;
     }
     try {
@@ -54,10 +57,12 @@ const ResetPassword = () => {
       );
       if (response.data.message === "Invalid secret code") {
         toast.error(response.data.message);
+        setIsSubmitting(false); // Stop form submission
         return;
       }
       if (response.data.message === "Password not matched") {
         toast.error(response.data.message);
+        setIsSubmitting(false); // Stop form submission
         return;
       }
       toast.success(response.data.message);
@@ -67,6 +72,7 @@ const ResetPassword = () => {
       }, 400);
     } catch (err) {
       toast.error("Server error");
+      setIsSubmitting(false); // Stop form submission
     }
   };
 
@@ -80,6 +86,11 @@ const ResetPassword = () => {
 
   return (
     <div className="container mt-5">
+      {isSubmitting && (
+        <div className="loading-overlay">
+          <ClipLoader size={60} color={"black"} loading={isSubmitting} />
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4">
           <h2 className="h5 bg-dark text-light py-3 text-center rounded-3">
@@ -148,6 +159,20 @@ const ResetPassword = () => {
           </button>
         </div>
       </form>
+      <style jsx>{`
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 9999;
+        }
+      `}</style>
       <ToastContainer />
     </div>
   );

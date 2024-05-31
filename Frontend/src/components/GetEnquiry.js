@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
+import { ClipLoader } from "react-spinners";
 
 export default function GetEnquiry() {
   const [enquiries, setEnquiries] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
 
   const deleteEnquiry = async (id) => {
@@ -42,6 +44,7 @@ export default function GetEnquiry() {
           setTimeout(() => {
             navigate("/login");
           }, 1000); // 1-second delay
+          setLoading(false);
           return;
         }
         // Fetch enquiries with authentication token
@@ -71,13 +74,20 @@ export default function GetEnquiry() {
         setEnquiries(response.data.data); // Set enquiries state
       } catch (error) {
         toast.error("Error fetching enquiries:");
+      } finally {
+        setLoading(false); // Set loading to false after fetch is complete
       }
     };
     fetchEnquiries();
-  }, []);
+  }, [navigate]);
+
   return (
     <div>
-      {enquiries && enquiries.length > 0 ? (
+      {loading ? (
+        <div className="text-center my-5">
+          <ClipLoader size={50} color={"black"} loading={loading} />
+        </div> // Display loading text while fetching data
+      ) : enquiries && enquiries.length > 0 ? (
         <>
           <table className="p-2 text-center table table-hover">
             <thead>

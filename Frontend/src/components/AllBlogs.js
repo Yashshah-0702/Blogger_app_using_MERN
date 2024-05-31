@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import AboutUs from "./AboutUs";
 import { apiKey } from "../config/api.config";
+import { ClipLoader } from "react-spinners";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AllBlogs() {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
 
@@ -47,6 +50,8 @@ export default function AllBlogs() {
         setBlogs(sortedBlogs);
       } catch (error) {
         toast.error("Server Error");
+      } finally {
+        setLoading(false); // Set loading to false after fetch is complete
       }
     };
     fetchBlogs();
@@ -55,14 +60,17 @@ export default function AllBlogs() {
   return (
     <div className="mx-lg-5">
       <div className="">
-        {blogs && blogs.length > 0 ? (
+        {loading ? ( // Display loading text while fetching data
+          <div className="text-center my-5">
+            <ClipLoader size={50} color={"black"} loading={loading} />
+          </div>
+        ) : blogs && blogs.length > 0 ? (
           <>
             <h5 className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1">
               All Blogs 📝
             </h5>
             <br></br>
             <div className="">
-              {/* <br></br> */}
               {blogs.map((blog) => (
                 <div
                   key={blog._id}
