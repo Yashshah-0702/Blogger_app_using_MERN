@@ -1,5 +1,5 @@
 "use strict";
-
+require("dotenv").config();
 
 const jwtConfig = {
   /*
@@ -7,9 +7,9 @@ const jwtConfig = {
   | JWT
   |--------------------------------------------------------------------------
   */
-  jwtSecret: "Hn16ed08YP",
-  tokenExpiration: "1h",
-  resetPasswordSecret: "Hn16ed08VY",
-  resetPasswordTokenExpiration: "1d",
+  jwtSecret: process.env.JWT_SECRET,
+  tokenExpiration: process.env.TOKEN_EXPIRATION,
+  resetPasswordSecret: process.env.RESET_PASSWORD_SECRET,
+  resetPasswordTokenExpiration: process.env.RESET_PASSWORD_TOKEN_EXPIRATION,
 };
 module.exports = jwtConfig;

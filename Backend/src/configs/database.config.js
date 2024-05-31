@@ -1,4 +1,5 @@
 "use strict";
+require("dotenv").config();
 const databaseConfig = {
   /*
   |--------------------------------------------------------------------------
@@ -11,7 +12,7 @@ const databaseConfig = {
   | DATABASE
   |--------------------------------------------------------------------------
   */
-  url: "mongodb+srv://Yash_Shah:y_a_s_h@cluster0.h0nmwav.mongodb.net/BloggingWorld",
+  url: process.env.MONGO_URL,
 };
 
 module.exports = databaseConfig;
