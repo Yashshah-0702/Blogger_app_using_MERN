@@ -49,7 +49,6 @@ const App = () => {
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/updateBlog" element={<UpdateBlog />} />
         <Route path="/userEnquiries" element={<GetEnquiry />} />
-        {/* <Route path="/aboutUs" element={<AboutUs />} /> */}
         <Route path="*" element={<h1>Error..., Page Not Found</h1>} />
       </Routes>
       <Footer />
