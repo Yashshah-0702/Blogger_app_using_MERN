@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("../models/user.model");
 const crypto = require("crypto");
 const emailQueue = require("../utils/emailQueue.utils");
@@ -30,7 +31,7 @@ exports.signUp = async (req, res) => {
       <h1>Welcome to Blogging World </h1> <br> 
       <h2>Your account has been created on blogging world.</h2> 
       <h4>Your new password is: ${password}.</h4>
-      <h4>You can <a href="http://192.168.10.79:3000/login">login</a> now </h4> 
+      <h4>You can <a href="${process.env.FRONTEND_URL}/login">login</a> now </h4> 
       <h4>you can change your password after login from our website.</h4>
       <h4>Best regards, <br>
       Blogging World Team</h4>
