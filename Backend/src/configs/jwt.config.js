@@ -8,7 +8,7 @@ const jwtConfig = {
   |--------------------------------------------------------------------------
   */
   jwtSecret: process.env.JWT_SECRET,
-  tokenExpiration: process.env.TOKEN_EXPIRATION,
+  tokenExpiration: process.env.TOKEN_EXPIRY,
   resetPasswordSecret: process.env.RESET_PASSWORD_SECRET,
   resetPasswordTokenExpiration: process.env.RESET_PASSWORD_TOKEN_EXPIRATION,
 };
