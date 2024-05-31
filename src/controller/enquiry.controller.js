@@ -2,18 +2,18 @@ const Enquiry = require("../models/enquiry.model");
 const emailQueue = require("../utils/emailQueue.utils");
 const { success, failure } = require("../utils/response.utils");
 const { httpsStatusCodes, serverResponseMessage } = require("../constants/");
-const useragent = require("useragent");
+// const useragent = require("useragent");
 
 exports.createEnquiry = async (req, res) => {
   try {
     const { name, title, email } = req.body;
-    const userAgentString = req.headers["user-agent"];
-    const agent = useragent.parse(userAgentString);
+    // const userAgentString = req.headers["user-agent"];
+    // const agent = useragent.parse(userAgentString);
 
-    const browserName = agent.family;
-    const deviceName = `${agent.os.family} ${agent.device.family}`;
-    console.log("Browser Name:", browserName);
-    console.log("Device Name:", deviceName);
+    // const browserName = agent.family;
+    // const deviceName = `${agent.os.family} ${agent.device.family}`;
+    // console.log("Browser Name:", browserName);
+    // console.log("Device Name:", deviceName);
     const data = {
       ...req.body,
     };
