@@ -11,7 +11,7 @@ const databaseConfig = {
   | DATABASE
   |--------------------------------------------------------------------------
   */
-  url: "mongodb://localhost:27017/certificate",
+  url: "mongodb+srv://Yash_Shah:y_a_s_h@cluster0.h0nmwav.mongodb.net/BloggingWorld",
 };
 
 module.exports = databaseConfig;
