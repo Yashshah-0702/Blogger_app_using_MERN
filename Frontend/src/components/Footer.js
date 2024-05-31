@@ -5,14 +5,14 @@ export default function Footer() {
 <footer className="bg-dark text-white mt-5">
     <div className="container py-4">
         <div className="row">
-            <div className="col-md-4 mb-4 mb-md-0">
+            <div className="col-md-6 mb-4 mb-md-0">
                 <h5 style={{fontWeight:"800"}}>Blogging World</h5>
                 <p>
                     Welcome to Blogging World, your number one source for all things blog-related. We’re dedicated to providing you the best of blogging tips, with a focus on quality, reliability, and uniqueness.
                 </p>
             </div>
-            <div className="col-md-4 mb-4 mb-md-0">
-                <h5 style={{fontWeight:"800"}}>Categories</h5>
+            <div className="col-md-2 mb-4 mb-md-0">
+                <h5 style={{fontWeight:"800" }}>Categories</h5>
                 <ul className="list-unstyled">
                     <li><a href="#" className="text-white text-start">Tech</a></li>
                     <li><a href="#" className="text-white">Lifestyle</a></li>
@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
     </div>
     <div className="bg-secondary text-center py-3">
-        <p className="mb-0">&copy; 2024 Blogging World. All Rights Reserved.</p>
+        <p className="mb-0" style={{fontWeight:"1000"}} >&copy; 2024 Blogging World. All Rights Reserved.</p>
     </div>
 </footer>
   )
