@@ -32,8 +32,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="bg-secondary text-center py-3">
-          <p className="mb-0">&copy; 2024 Blogging World. All Rights Reserved.</p>
+        <div className="bg-white text-dark text-center py-3">
+          <p className="mb-0" style={{fontWeight:"1000"}}>&copy; 2024 Blogging World. All Rights Reserved.</p>
         </div>
       </footer>
     </div>

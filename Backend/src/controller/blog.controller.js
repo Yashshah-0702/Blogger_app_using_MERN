@@ -122,7 +122,7 @@ exports.getMyBlogs = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   try {
     const { user } = req;
-        const apiHost = req.headers.host;
+    const apiHost = req.headers.host;
     let blogPath;
     const { _id } = req.body;
     const blog = await Blog.findOne({ _id });
@@ -142,9 +142,9 @@ exports.updateBlog = async (req, res) => {
     }
     if (req.file) {
       blogPath =
-        `${req.protocol}}://${apiHost}` + 
-        req.media_details.file_path +
-        req.media_details.name;
+      `${req.protocol}://${apiHost}` +
+      req.media_details.file_path +
+      req.media_details.name;
       await removeBlog(blog);
     } else {
       blogPath = blog.blogUrl;

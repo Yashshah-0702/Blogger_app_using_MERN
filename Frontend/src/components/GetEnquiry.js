@@ -82,51 +82,54 @@ export default function GetEnquiry() {
   }, [navigate]);
 
   return (
-    <div>
-      {loading ? (
-        <div className="text-center my-5">
-          <ClipLoader size={50} color={"black"} loading={loading} />
-        </div> // Display loading text while fetching data
-      ) : enquiries && enquiries.length > 0 ? (
-        <>
-          <table className="p-2 text-center table table-hover">
-            <thead>
-              <tr>
-                <th>Sr.NO.</th>
-                {/* <th>ID</th> */}
-                <th>FullName</th>
-                <th>Email</th>
-                <th>Title</th>
-                <th>Message</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {enquiries.map((enquiry, index) => (
-                <tr key={enquiry._id}>
-                  <td>{index + 1}</td>
-                  {/* <td>{enquiry._id}</td> */}
-                  <td>{enquiry.name}</td>
-                  <td>{enquiry.email}</td>
-                  <td>{enquiry.title}</td>
-                  <td>{enquiry.message}</td>
-                  <td>
-                    <button
-                      onClick={() => deleteEnquiry(enquiry._id)}
-                      className="btn btn-outline-dark"
-                    >
-                      Delete Enquiry
-                    </button>
-                  </td>
+    <>
+    <h3 className="text-center">User Enquiries</h3>
+      <div style={{ overflowX: "auto", height: "380px", margin: "20px" }}>
+        {loading ? (
+          <div className="text-center my-5">
+            <ClipLoader size={50} color={"black"} loading={loading} />
+          </div> // Display loading text while fetching data
+        ) : enquiries && enquiries.length > 0 ? (
+          <>
+            <table className="p-2 text-center table table-hover">
+              <thead>
+                <tr>
+                  <th>Sr.NO.</th>
+                  {/* <th>ID</th> */}
+                  <th>FullName</th>
+                  <th>Email</th>
+                  <th>Title</th>
+                  <th>Message</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      ) : (
-        <p>No enquiries found</p>
-      )}
-      <ToastContainer />
-    </div>
+              </thead>
+              <tbody>
+                {enquiries.map((enquiry, index) => (
+                  <tr key={enquiry._id}>
+                    <td>{index + 1}</td>
+                    {/* <td>{enquiry._id}</td> */}
+                    <td>{enquiry.name}</td>
+                    <td>{enquiry.email}</td>
+                    <td>{enquiry.title}</td>
+                    <td>{enquiry.message}</td>
+                    <td>
+                      <button
+                        onClick={() => deleteEnquiry(enquiry._id)}
+                        className="btn btn-outline-dark"
+                      >
+                        Delete Enquiry
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        ) : (
+          <p>No enquiries found</p>
+        )}
+        <ToastContainer />
+      </div>
+    </>
   );
 }
