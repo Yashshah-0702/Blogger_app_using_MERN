@@ -42,7 +42,7 @@ const BlogList = () => {
 
   const deleteBlog = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete your profile?"
+      "Are you sure you want to delete your blog?"
     );
 
     if (!confirmed) {
