@@ -35,7 +35,7 @@ exports.signUp = async (req, res) => {
       <h4>Best regards, <br>
       Blogging World Team</h4>
       `;
-      emailQueue.add({ email: req.body.email, subject, text });
+      await emailQueue.add({ email: req.body.email, subject, text });
     }
     let encryptPassword = await bcrypt.hash(password, 10);
     const data = {

@@ -25,7 +25,7 @@ exports.createEnquiry = async (req, res) => {
     We are here to assist you and ensure you have all the information you need.</h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    emailQueue.add({ email, subject, text });
+    await emailQueue.add({ email, subject, text });
     const response = await Enquiry.create(data);
     return success(
       res,
