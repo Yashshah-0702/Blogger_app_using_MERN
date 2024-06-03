@@ -55,6 +55,10 @@ function BlogDetails() {
     fetchBlogDetails();
   }, []);
 
+  const processContent = (content) => {
+    return content.replace(/\. /g, ".<br/>");
+  };
+
   return (
     <div className="container">
       <br />
@@ -63,7 +67,10 @@ function BlogDetails() {
           <ClipLoader size={50} color={"black"} loading={loading} />
         </div> // Display loading text while fetching data
       ) : blogDetails ? (
-        <div className="card shadow p-lg-4 p-2 mb-4" key={blogDetails._id}>
+        <div
+          className="card shadow p-lg-4 rounded-3 mb-4"
+          key={blogDetails._id}
+        >
           <img
             src={blogDetails.blogUrl}
             alt={blogDetails.title}
@@ -77,10 +84,15 @@ function BlogDetails() {
             // style={{  height: "350px" , width:"100%" }}
           />
           <br />
-          <div className="m-lg-5 card-body">
-            <h3 className="d-lg-visible">{blogDetails.title}</h3>
+          <div className="m-lg-3 card-body">
+            <h3
+              className="d-lg-visible"
+              style={{ fontWeight: "900", textDecoration: "underline" }}
+            >
+              {blogDetails.title}
+            </h3>
             <br />
-            <h5 className="h5 text-muted">{blogDetails.content}</h5>
+            <p className="text-muted" style={{ fontFamily: "fantasy" }} dangerouslySetInnerHTML={{ __html: processContent(blogDetails.content) }}></p>
             <br />
             <p className="card-text">
               Author:-

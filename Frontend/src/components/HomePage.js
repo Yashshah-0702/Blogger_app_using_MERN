@@ -126,6 +126,9 @@ export default function HomePage() {
                           textOverflow: "ellipsis",
                           whiteSpace: "normal",
                           height: "3.0em",
+                          fontWeight: "900",
+                          textDecoration: "underline",
+                          fontFamily: "fantasy",
                         }}
                       >
                         {blog.title}

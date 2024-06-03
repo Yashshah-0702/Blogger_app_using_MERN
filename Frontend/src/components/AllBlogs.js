@@ -95,12 +95,14 @@ export default function AllBlogs() {
                         textOverflow: "ellipsis",
                         whiteSpace: "normal",
                         height: "3.0em",
+                        fontWeight:"900",
+                        textDecoration:"underline"
                       }}
                     >
                       {blog.title}
                     </h2>
-                    <h5
-                      className="small card-text"
+                   <h5
+                      className="small card-text text-muted"
                       style={{
                         display: "-webkit-box",
                         WebkitLineClamp: 3,
@@ -109,10 +111,11 @@ export default function AllBlogs() {
                         textOverflow: "ellipsis",
                         whiteSpace: "normal",
                         height: "3.6em",
+                        fontFamily:"fantasy"
                       }}
                     >
                       {blog.content}
-                    </h5>
+                    </h5> 
                     <br></br>
                     <p className="card-text">
                       Author :-
