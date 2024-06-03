@@ -273,7 +273,8 @@ exports.forgotPassword = async (req, res) => {
     <h4> If you did not request a password reset, please ignore this email. </h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    await emailQueue.add({ email, subject, text });
+    const data = await emailQueue.add({ email, subject, text });
+    console.log(data)
     const token = jwt.sign(
       {
         email: userEmail.email,
