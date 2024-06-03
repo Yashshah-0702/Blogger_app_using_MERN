@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const crypto = require("crypto");
-const emailQueue = require("../utils/emailQueue.utils");
+const { sendPasswordToEmail } = require("../utils/send-mail.utils");
 const { success, failure } = require("../utils/response.utils");
 const { httpsStatusCodes, serverResponseMessage } = require("../constants/");
 const { jwtConfig } = require("../configs");
@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 exports.signUp = async (req, res) => {
   try {
     let { user } = req.params;
-    let { password, first_name, last_name } = req.body;
+    let { email, password, first_name, last_name } = req.body;
     let userType = 2;
     if (user === "admin") {
       userType = 1;
@@ -35,7 +35,7 @@ exports.signUp = async (req, res) => {
       <h4>Best regards, <br>
       Blogging World Team</h4>
       `;
-      await emailQueue.add({ email: req.body.email, subject, text });
+      sendPasswordToEmail(email, subject, text);
     }
     let encryptPassword = await bcrypt.hash(password, 10);
     const data = {
@@ -43,8 +43,8 @@ exports.signUp = async (req, res) => {
       password: encryptPassword,
       user_type: userType,
     };
-    const email = await User.findOne({ email: req.body.email });
-    if (email) {
+    const UserEmail = await User.findOne({ email });
+    if (UserEmail) {
       return failure(
         res,
         httpsStatusCodes.BAD_REQUEST,
@@ -273,8 +273,7 @@ exports.forgotPassword = async (req, res) => {
     <h4> If you did not request a password reset, please ignore this email. </h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    const data = await emailQueue.add({ email, subject, text });
-    console.log(data)
+    sendPasswordToEmail(email, subject, text);
     const token = jwt.sign(
       {
         email: userEmail.email,
