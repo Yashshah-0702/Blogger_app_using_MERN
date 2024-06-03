@@ -45,8 +45,8 @@ export default function CreateBlog() {
       }, 1000);
       return;
     }
-    if (typeof title !== "string" || title.length < 20 || title.length > 50) {
-      toast.error("Title must be a string and between 20 and 50 characters.");
+    if (typeof title !== "string" || title.length < 5 || title.length > 100) {
+      toast.error("Title must be a string and between 5 and 100 characters.");
       return;
     }
     if (typeof content !== "string" || content.length < 300) {
