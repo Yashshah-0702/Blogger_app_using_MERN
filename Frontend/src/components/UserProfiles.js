@@ -66,7 +66,7 @@ const UserProfiles = () => {
       <h3 className="text-center">User Profiles</h3>
       <div style={{ overflowX: "auto", height: "380px", margin: "20px" }}>
         {loading ? ( // Display loading text while fetching data
-          <div className="text-center my-5">
+          <div className="loading-overlay">
             <ClipLoader size={50} color={"black"} loading={loading} />
           </div>
         ) : profiles && profiles.length > 0 ? (

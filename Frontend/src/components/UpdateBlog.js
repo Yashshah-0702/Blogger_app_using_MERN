@@ -69,6 +69,7 @@ const UpdateBlog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!token) {
       toast.error("Please login for this functionality");
       setTimeout(() => {
@@ -122,6 +123,8 @@ const UpdateBlog = () => {
       }, 800);
     } catch (error) {
       toast.error("Server Error");
+    } finally {
+      setLoading(false); // Set loading to false after receiving the response or encountering an error
     }
   };
 
@@ -144,7 +147,7 @@ const UpdateBlog = () => {
             Update Blog
           </h5>
           {loading ? (
-            <div className="text-center my-5">
+            <div className="loading-overlay">
               <ClipLoader size={50} color={"black"} loading={loading} />
             </div> // Display loading text while fetching data
           ) : (
@@ -207,7 +210,6 @@ const UpdateBlog = () => {
             </>
           )}
         </div>
-        
         <ToastContainer />
       </form>
     </div>

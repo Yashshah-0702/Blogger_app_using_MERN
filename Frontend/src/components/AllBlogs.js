@@ -61,7 +61,7 @@ export default function AllBlogs() {
     <div className="mx-lg-5">
       <div>
         {loading ? ( // Display loading text while fetching data
-          <div className="text-center my-5">
+          <div className="loading-overlay">
             <ClipLoader size={50} color={"black"} loading={loading} />
           </div>
         ) : blogs && blogs.length > 0 ? (

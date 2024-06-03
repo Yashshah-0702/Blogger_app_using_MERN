@@ -127,7 +127,7 @@ const UpdateProfile = () => {
             Update Profile
           </h2>
           {loading ? (
-            <div className="text-center my-5">
+            <div className="loading-overlay">
               <ClipLoader size={50} color={"black"} loading={loading} />
             </div> // Display loading text while fetching data
           ) : (
