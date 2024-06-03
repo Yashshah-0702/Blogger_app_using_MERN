@@ -46,6 +46,7 @@ export default function ContactUs() {
         toast.success(response.data.message);
       }
     } catch (err) {
+      console.log(err)
       setLoading(false);
       toast.error("Enquiry failed. Please try again.");
     }

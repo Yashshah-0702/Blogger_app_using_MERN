@@ -18,7 +18,15 @@ const emailQueue = new Queue("emailQueue", {
 
 emailQueue.process(async (job) => {
   const { email, subject, text } = job.data;
-  await sendPasswordToEmail(email, subject, text);
+  console.log(`Processing job for ${email}`);
+  try {
+    await sendPasswordToEmail(email, subject, text);
+    console.log(`Email sent to ${email}`);
+    job.moveToCompleted("done", true); // Explicitly mark job as completed
+  } catch (error) {
+    console.error(`Failed to send email to ${email}: ${error.message}`);
+    job.moveToFailed({ message: error.message }); // Mark job as failed
+  }
 });
 
 module.exports = emailQueue;
