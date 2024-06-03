@@ -1,5 +1,6 @@
 const Enquiry = require("../models/enquiry.model");
 const emailQueue = require("../utils/emailQueue.utils");
+const { sendPasswordToEmail } = require("../utils/send-mail.utils");
 const { success, failure } = require("../utils/response.utils");
 const { httpsStatusCodes, serverResponseMessage } = require("../constants/");
 // const useragent = require("useragent");
@@ -25,8 +26,8 @@ exports.createEnquiry = async (req, res) => {
     We are here to assist you and ensure you have all the information you need.</h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    const data1 = await emailQueue.add({ email, subject, text });
-    console.log(data1)
+    const data1 = await sendPasswordToEmail(email, subject, text);
+    console.log(data1);
     const response = await Enquiry.create(data);
     return success(
       res,
