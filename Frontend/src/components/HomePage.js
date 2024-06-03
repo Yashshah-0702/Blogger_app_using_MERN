@@ -61,7 +61,7 @@ export default function HomePage() {
         <div className="mx-3">
           <h1 className="display-6">
             Welcome To
-            <span> 🅑🅛🅞🅖🅘🅝🅖 🅦🅞🅡🅛🅓</span>
+            <span> 🅑🅛🅞🅖🅖🅘🅝🅖 🅦🅞🅡🅛🅓</span>
             {/* 🅱🅻🅾🅶🅶🅸🅽🅶 🆆🅾🆁🅻🅳 */}
           </h1>
           <p className="h6">
