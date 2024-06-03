@@ -125,7 +125,7 @@ export default function HomePage() {
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "normal",
-                          height: "2.0em",
+                          height: "3.0em",
                         }}
                       >
                         {blog.title}
