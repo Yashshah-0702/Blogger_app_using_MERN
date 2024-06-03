@@ -1,25 +1,8 @@
-const path = require("path");
-const fs = require("fs");
 const Blog = require("../models/blog.model");
 const User = require("../models/user.model");
 const { success, failure } = require("../utils/response.utils");
 const { httpsStatusCodes, serverResponseMessage } = require("../constants");
-const {
-  mediaConfig,
-  mediaConfig: {
-    imageUpload: { ImagePath },
-  },
-} = require("../configs");
-const dir = path.resolve(__dirname, "../../");
-const removeBlog = async (blog) => {
-  const existingBlogFileName = blog.blogUrl.split("/").pop();
-  console.log(existingBlogFileName);
-  const existingBlogPath = path.join(
-    dir,
-    mediaConfig.main_upload_dir + "/" + ImagePath + existingBlogFileName
-  );
-  await fs.promises.unlink(existingBlogPath);
-};
+const {cloudinary} = require("../configs");
 
 exports.getBlogs = async (req, res) => {
   try {
@@ -69,12 +52,9 @@ exports.createBlog = async (req, res) => {
   try {
     // console.log(req.headers.host)
     const { user } = req;
-    const apiHost = req.headers.host;
-    const blogPath =
-      `${req.protocol}://${apiHost}` +
-      req.media_details.file_path +
-      req.media_details.name;
     const author = await User.findOne({ _id: user.id });
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const blogPath = result.secure_url; 
     const date = new Date();
     const data = {
       ...req.body,
@@ -122,7 +102,6 @@ exports.getMyBlogs = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   try {
     const { user } = req;
-    const apiHost = req.headers.host;
     let blogPath;
     const { _id } = req.body;
     const blog = await Blog.findOne({ _id });
@@ -141,11 +120,8 @@ exports.updateBlog = async (req, res) => {
       );
     }
     if (req.file) {
-      blogPath =
-      `${req.protocol}://${apiHost}` +
-      req.media_details.file_path +
-      req.media_details.name;
-      await removeBlog(blog);
+      const result = await cloudinary.uploader.upload(req.file.path);
+      blogPath = result.secure_url;
     } else {
       blogPath = blog.blogUrl;
     }
@@ -160,8 +136,7 @@ exports.updateBlog = async (req, res) => {
       serverResponseMessage.BLOG_UPDATED_SUCCESSFULLY,
       response
     );
-  } catch (error) {
-    console.log(error);
+  } catch (error) {;
     return failure(
       res,
       httpsStatusCodes.INTERNAL_SERVER_ERROR,
