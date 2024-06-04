@@ -4,10 +4,7 @@ const { sendPasswordToEmail } = require("./send-mail.utils");
 const emailQueue = new Queue("emailQueue", {
   redis: {
     host: "127.0.0.1",
-    port: 6379,
-    maxRetriesPerRequest: null,
-    tls: true,
-    enableTLSForSentinelMode: false,
+    port: 6379
   },
 });
 
