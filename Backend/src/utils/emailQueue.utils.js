@@ -8,9 +8,10 @@ const emailQueue = new Queue("emailQueue", {
   },
 });
 
-emailQueue.process(async (job) => {
+emailQueue.process(async (job, done) => {
   const { email, subject, text } = job.data;
   await sendPasswordToEmail(email, subject, text);
+  done();
 });
 
 module.exports = emailQueue;
