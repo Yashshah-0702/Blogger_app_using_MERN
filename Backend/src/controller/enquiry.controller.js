@@ -26,7 +26,8 @@ exports.createEnquiry = async (req, res) => {
     We are here to assist you and ensure you have all the information you need.</h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    await emailQueue.add({ email, subject, text });
+    const data1 = await emailQueue.add({ email, subject, text });
+    console.log(data1);
     // sendPasswordToEmail(email, subject, text);
     const response = await Enquiry.create(data);
     return success(
