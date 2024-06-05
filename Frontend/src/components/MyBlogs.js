@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import { ClipLoader } from "react-spinners";
@@ -183,12 +183,27 @@ const BlogList = () => {
                           {formatDate(blog.Publication_date)}
                         </span>
                       </p>
-                      <button
-                        className="btn btn-outline-dark mt-auto"
-                        onClick={() => handleViewDetails(blog._id)}
-                      >
-                        View Details
-                      </button>
+                      <div>
+                        <button
+                          className="btn btn-outline-dark"
+                          onClick={() => handleViewDetails(blog._id)}
+                        >
+                          View Details
+                        </button>{" "}
+                        <button
+                          className="btn btn-outline-dark"
+                          onClick={() => deleteBlog(blog._id)}
+                        >
+                          Delete Blog
+                        </button>{" "}
+                        <NavLink
+                          to="/updateBlog"
+                          className="btn btn-outline-dark"
+                          onClick={() => handleViewDetails(blog._id)}
+                        >
+                          Update Blog
+                        </NavLink>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
