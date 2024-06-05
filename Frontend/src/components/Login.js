@@ -71,7 +71,73 @@ const Login = () => {
           <ClipLoader size={60} color={"black"} loading={loading} />
         </div>
       )}
-      <div className="row justify-content-center mt-5">
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="h5 bg-dark text-light py-3 rounded-3 h2 text-center">
+            Login into blogging World:-
+          </h2>
+          <br />
+          <div className="mb-3">
+            <label className="form-label">Email:</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Password:</label>
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                visibility="hidden"
+              />
+              <div className="input-group-append">
+                <button
+                  type="button"
+                  className="btn btn-outline-dark btn-lg"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div className="text-center">
+          <p>
+            {" "}
+            Don't remember your password ? then{" "}
+            <span>
+              <NavLink to="/forgotPassword"> Forgot Password </NavLink>
+            </span>
+          </p>{" "}
+          <button
+            className="btn btn-outline-dark btn-md"
+            type="submit"
+            disabled={loading}
+          >
+            Login
+          </button>
+          <br /> <br />
+          <p>
+            Don't have an account then{"   "}
+            <span>
+              <NavLink to="/signup/user">Sign-up</NavLink>
+            </span>
+          </p>{" "}
+          <br />
+        </div>
+      </form>
+      {/* <div className="row justify-content-center mt-5">
         <div className="col-md-6">
           <div className="card shadow p-4">
             <h2 className="h5 bg-dark text-light py-3 rounded-3 text-center">
@@ -129,7 +195,7 @@ const Login = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
       <ToastContainer />
     </div>
   );

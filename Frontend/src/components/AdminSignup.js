@@ -62,76 +62,74 @@ const Signup = () => {
   };
 
   return (
-    <div className="container my-5">
+    <div className="container">
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />
         </div>
       )}
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card shadow p-4">
-            <h2 className="h5 bg-dark text-light py-3 text-center rounded">
-              Create an Admin Profile
-            </h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3 mt-3">
-                <label className="form-label">First Name:</label>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First Name"
-                  className="form-control"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Last Name:</label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last Name"
-                  className="form-control"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">User Name:</label>
-                <input
-                  type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  placeholder="User Name"
-                  className="form-control"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Email:</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  className="form-control"
-                  required
-                />
-              </div>
-              <div className="text-center">
-                <button
-                  className="btn btn-dark btn-md w-100"
-                  type="submit"
-                  disabled={loading}
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+      <br />
+      <form onSubmit={handleSubmit}>
+        <div className="card shadow p-4 mt-lg-5 mb-4">
+          <h2 className="h5 bg-dark text-light py-3 text-center rounded-3">
+            Create an Admin profile:
+          </h2>
+          <div className="mb-3 mt-3">
+            <label className="form-label">FirstName:</label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="FirstName"
+              className="form-control"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">LastName:</label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="LastName"
+              className="form-control"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">UserName:</label>
+            <input
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="UserName"
+              className="form-control"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@example.com"
+              className="form-control"
+              required
+            />
           </div>
         </div>
-      </div>
+        <div className="mt-2 text-center">
+          <button
+            className="btn btn-outline-dark btn-md"
+            type="submit"
+            disabled={loading}
+          >
+            Submit
+          </button>
+        </div>
+        <br />
+      </form>
       <ToastContainer />
     </div>
   );
