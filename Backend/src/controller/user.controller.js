@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 exports.signUp = async (req, res) => {
   try {
     let { user } = req.params;
-    let { email, password, first_name, last_name } = req.body;
+    let { password, first_name, last_name } = req.body;
     let userType = 2;
     if (user === "admin") {
       userType = 1;
@@ -35,7 +35,7 @@ exports.signUp = async (req, res) => {
       <h4>Best regards, <br>
       Blogging World Team</h4>
       `;
-      sendPasswordToEmail(email, subject, text);
+      sendPasswordToEmail(req.body.email, subject, text);
     }
     let encryptPassword = await bcrypt.hash(password, 10);
     const data = {
@@ -273,7 +273,7 @@ exports.forgotPassword = async (req, res) => {
     <h4> If you did not request a password reset, please ignore this email. </h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    sendPasswordToEmail(email, subject, text);
+    sendPasswordToEmail(req.body.email, subject, text);
     const token = jwt.sign(
       {
         email: userEmail.email,

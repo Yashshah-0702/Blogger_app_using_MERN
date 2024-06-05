@@ -7,7 +7,7 @@ const { httpsStatusCodes, serverResponseMessage } = require("../constants/");
 
 exports.createEnquiry = async (req, res) => {
   try {
-    const { name, title, email } = req.body;
+    const { name, title } = req.body;
     // const userAgentString = req.headers["user-agent"];
     // const agent = useragent.parse(userAgentString);
 
@@ -26,7 +26,7 @@ exports.createEnquiry = async (req, res) => {
     We are here to assist you and ensure you have all the information you need.</h4>
     <h4>Best regards, <br>
     Blogging World Team</h4>`;
-    sendPasswordToEmail(email, subject, text);
+    sendPasswordToEmail(req.body.email, subject, text);
     const response = await Enquiry.create(data);
     return success(
       res,

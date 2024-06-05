@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -65,78 +66,70 @@ const Login = () => {
 
   return (
     <div className="container">
-      <br />
       {loading && (
         <div className="loading-overlay">
-          <ClipLoader size={60} color={"black"} loading={loading} />
+          <ClipLoader size={60} color={"#ffffff"} loading={loading} />
         </div>
       )}
-      <form onSubmit={handleSubmit}>
-        <div className="card shadow p-4 mt-lg-5 mb-4">
-          <h2 className="h5 bg-dark text-light py-3 rounded-3 h2 text-center">
-            Login into blogging World:-
-          </h2>
-          <br />
-          <div className="mb-3">
-            <label className="form-label">Email:</label>
-            <input
-              type="email"
-              className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password:</label>
-            <div className="input-group">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                visibility="hidden"
-              />
-              <div className="input-group-append">
+      <div className="row justify-content-center mt-5">
+        <div className="col-md-6">
+          <div className="card shadow p-4">
+            <h2 className="h5 bg-dark text-light py-3 rounded-3 text-center">
+              Login to Blogging World
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Email:</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Password:</label>
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-dark"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
+              </div>
+              <div className="text-center">
                 <button
-                  type="button"
-                  className="btn btn-outline-dark btn-lg"
-                  onClick={togglePasswordVisibility}
+                  className="btn btn-dark btn-md w-100"
+                  type="submit"
+                  disabled={loading}
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  Login
                 </button>
               </div>
-            </div>
+              <div className="text-center mt-3">
+                <p>
+                  Don't remember your password?{" "}
+                  <NavLink to="/forgotPassword">Forgot Password</NavLink>
+                </p>
+                <p>
+                  Don't have an account?{" "}
+                  <NavLink to="/signup/user">Sign up</NavLink>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
-        <br />
-        <div className="text-center">
-          <p>
-            {" "}
-            Don't remember your password ? then{" "}
-            <span>
-              <NavLink to="/forgotPassword"> Forgot Password </NavLink>
-            </span>
-          </p>{" "}
-          <button
-            className="btn btn-outline-dark btn-md"
-            type="submit"
-            disabled={loading}
-          >
-            Login
-          </button>
-          <br /> <br />
-          <p>
-            Don't have an account then{"   "}
-            <span>
-              <NavLink to="/signup/user">Sign-up</NavLink>
-            </span>
-          </p>{" "}
-          <br />
-        </div>
-      </form>
-
+      </div>
       <ToastContainer />
     </div>
   );
