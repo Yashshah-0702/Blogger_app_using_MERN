@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const { sendPasswordToEmail } = require("../utils/send-mail.utils");
 const { success, failure } = require("../utils/response.utils");
 const { httpsStatusCodes, serverResponseMessage } = require("../constants/");
-const { jwtConfig } = require("../configs");
+const { jwtConfig, frontUrl } = require("../configs");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -30,7 +30,7 @@ exports.signUp = async (req, res) => {
       <h1>Welcome to Blogging World </h1> <br> 
       <h2>Your account has been created on blogging world.</h2> 
       <h4>Your new password is: ${password}.</h4>
-      <h4>You can <a href="http://192.168.10.79:3000/login">login</a> now </h4> 
+      <h4>You can <a href="${frontUrl}">login</a> now </h4> 
       <h4>you can change your password after login from our website.</h4>
       <h4>Best regards, <br>
       Blogging World Team</h4>
