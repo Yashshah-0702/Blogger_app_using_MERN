@@ -65,7 +65,7 @@ const Signup = () => {
     <div className="container my-5">
       {loading && (
         <div className="loading-overlay">
-          <ClipLoader size={60} color={"#000"} loading={loading} />
+          <ClipLoader size={60} color={"black"} loading={loading} />
         </div>
       )}
       <div className="row justify-content-center">

@@ -68,7 +68,7 @@ const Login = () => {
     <div className="container">
       {loading && (
         <div className="loading-overlay">
-          <ClipLoader size={60} color={"#ffffff"} loading={loading} />
+          <ClipLoader size={60} color={"black"} loading={loading} />
         </div>
       )}
       <div className="row justify-content-center mt-5">
