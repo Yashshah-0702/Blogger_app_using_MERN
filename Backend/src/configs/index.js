@@ -4,4 +4,5 @@ module.exports = {
   loggerConfig: require("./logger.config"),
   databaseConfig: require("./database.config"),
   cloudinary: require("./cloudinary.config"),
+  frontUrl: require("./frontUrl.config"),
 };
