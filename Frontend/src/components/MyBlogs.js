@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import { ClipLoader } from "react-spinners";
+import { motion, AnimatePresence } from "framer-motion";
+import "react-toastify/dist/ReactToastify.css";
+import bodyMotion from "../config/bodyMotion.config";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
@@ -107,9 +110,19 @@ const BlogList = () => {
 
     fetchBlogs();
   }, []);
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.0 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
+  };
 
   return (
-    <div className="px-lg-5">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       {/* <br></br> */}
       {loading ? (
         <div className="loading-overlay">
@@ -117,93 +130,71 @@ const BlogList = () => {
         </div>
       ) : blogs && blogs.length > 0 ? (
         <>
-          <h4 className="h4 text-center py-2 bg-dark bg-gradient mx-1 rounded-3 text-light">
+          <h2
+            className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light"
+            style={{ fontWeight: "1000" }}
+          >
             Your Blogs
-          </h4>
-          <br></br>
-          <div className="">
-            {blogs.map((blog) => (
-              <div
-                className="row bg-gradient border-bottom rounded-3 bg-body shadow mt-3 m-2"
-                // style={{ backgroundColor: "#f0f0f0" }}
-                key={blog._id}
-              >
-                <div className="col-md-4 col-lg-4 col-sm-12 p-lg-5 p-sm-2">
-                  <img
-                    src={blog.blogUrl}
-                    alt={blog.title}
-                    className="w-100"
-                    style={{ height: "260px" }}
-                  />
-                </div>
-                <div className="col-md-8 col-lg-8 col-sm-12 p-lg-5 p-3">
-                  <h2
-                    className="h4 card-title"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "normal", // Ensuring normal whitespace
-                      height: "2.0em", // Adjust this value based on line height and number of lines
-                    }}
-                  >
-                    {blog.title}
-                  </h2>
-                  {/* <br></br> */}
-                  <h5
-                    className="small card-text"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "normal", // Ensuring normal whitespace
-                      height: "3.6em", // Adjust this value based on line height and number of lines
-                    }}
-                  >
-                    {blog.content}
-                  </h5>
-                  <br></br>
-                  <p className="card-text">
-                    Author:-
-                    <small className="text-dark text-decoration-underline">
-                      {blog.author.toUpperCase()}
-                    </small>
-                  </p>
-                  <p className="card-text">
-                    Publication Date:-
-                    <small className="text-dark">
-                      {formatDate(blog.Publication_date)}
-                    </small>
-                  </p>
-                  <div>
-                    <button
-                      className="btn btn-outline-dark"
-                      onClick={() => handleViewDetails(blog._id)}
-                    >
-                      View Details
-                    </button>{" "}
-                    <button
-                      className="btn btn-outline-dark"
-                      onClick={() => deleteBlog(blog._id)}
-                    >
-                      Delete Blog
-                    </button>{" "}
-                    <NavLink
-                      to="/updateBlog"
-                      className="btn btn-outline-dark"
-                      onClick={() => handleViewDetails(blog._id)}
-                    >
-                      Update Blog
-                    </NavLink>
+          </h2>
+          <div className="row">
+            <AnimatePresence>
+              {blogs.map((blog) => (
+                <motion.div
+                  key={blog._id}
+                  className="col-md-6 col-lg-4 mb-4"
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="card shadow-sm h-100">
+                    <img
+                      src={blog.blogUrl}
+                      alt={blog.title}
+                      className="card-img-top"
+                      style={{ height: "200px", objectFit: "cover" }}
+                    />
+                    <div className="card-body d-flex flex-column">
+                      <h3
+                        className="card-title"
+                        style={{
+                          fontWeight: "bold",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        {blog.title}
+                      </h3>
+                      <p
+                        className="card-text text-muted"
+                        style={{ flex: "1 1 auto" }}
+                      >
+                        {blog.content.slice(0, 100)}...
+                      </p>
+                      <p className="card-text mb-1">
+                        Author:{" "}
+                        <span className="text-dark text-decoration-underline">
+                          {blog.author.toUpperCase()}
+                        </span>
+                      </p>
+                      <p className="card-text">
+                        Publication Date:{" "}
+                        <span className="text-dark">
+                          {formatDate(blog.Publication_date)}
+                        </span>
+                      </p>
+                      <button
+                        className="btn btn-outline-dark mt-auto"
+                        onClick={() => handleViewDetails(blog._id)}
+                      >
+                        View Details
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </div>
-              // </div>
-            ))}
+                </motion.div>
+                // </div>
+              ))}
+            </AnimatePresence>
           </div>
         </>
       ) : (
@@ -211,7 +202,7 @@ const BlogList = () => {
       )}
 
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 

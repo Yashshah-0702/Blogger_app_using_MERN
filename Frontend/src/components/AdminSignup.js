@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
+import bodyMotion from "../config/bodyMotion.config";
+import { motion } from "framer-motion";
 
 const Signup = () => {
   const [userName, setUserName] = useState("");
@@ -60,9 +62,18 @@ const Signup = () => {
       toast.error("Signup failed. Please try again.");
     }
   };
-
+  // const bodyVariants = {
+  //   hidden: { opacity: 0 },
+  //   visible: { opacity: 1, transition: { duration: 1.0 } },
+  // };
   return (
-    <div className="container">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />
@@ -131,7 +142,7 @@ const Signup = () => {
         <br />
       </form>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 

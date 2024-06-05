@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -94,7 +96,13 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container mt-5"
+    >
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />
@@ -119,7 +127,7 @@ const ChangePassword = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-dark"
+                  className="btn btn-outline-dark "
                   onClick={toggleOldPasswordVisibility}
                 >
                   {showOldPassword ? "Hide" : "Show"}
@@ -140,7 +148,7 @@ const ChangePassword = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-dark"
+                  className="btn btn-outline-dark "
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? "Hide" : "Show"}
@@ -161,7 +169,7 @@ const ChangePassword = () => {
               <div className="input-group-append">
                 <button
                   type="button"
-                  className="btn btn-outline-dark"
+                  className="btn btn-outline-dark "
                   onClick={toggleConfirmPasswordVisibility}
                 >
                   {showConfirmPassword ? "Hide" : "Show"}
@@ -171,13 +179,17 @@ const ChangePassword = () => {
           </div>
         </div>
         <div className="text-center">
-          <button className="btn btn-outline-dark btn-md" type="submit" disabled={loading}>
+          <button
+            className="btn btn-outline-dark btn-md"
+            type="submit"
+            disabled={loading}
+          >
             Change Password
           </button>
         </div>
       </form>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 

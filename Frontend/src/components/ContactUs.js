@@ -53,7 +53,7 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="m-2 mt-5 bg-body bg-gradient rounded-3 shadow">
+    <div className="m-1 p-1 mt-5 bg-body bg-gradient rounded-3 shadow">
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />

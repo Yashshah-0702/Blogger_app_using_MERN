@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiKey } from "../config/api.config";
 import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 const UpdateBlog = () => {
   const [formData, setFormData] = useState({
@@ -139,7 +141,13 @@ const UpdateBlog = () => {
   };
 
   return (
-    <div className="container">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       <br></br>
       <form onSubmit={handleSubmit}>
         <div className="card shadow p-4 mt-lg-5 mb-4 ">
@@ -212,7 +220,7 @@ const UpdateBlog = () => {
         </div>
         <ToastContainer />
       </form>
-    </div>
+    </motion.div>
   );
 };
 

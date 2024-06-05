@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
+import bodyMotion from "../config/bodyMotion.config";
+import { motion } from "framer-motion";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -65,7 +67,13 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />
@@ -105,7 +113,6 @@ const Login = () => {
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? "Hide" : "Show"}
-                
                 </button>
               </div>
             </div>
@@ -197,7 +204,7 @@ const Login = () => {
         </div>
       </div> */}
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 

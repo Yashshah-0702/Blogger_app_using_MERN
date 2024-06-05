@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import "react-toastify/dist/ReactToastify.css";
 import { apiKey } from "../config/api.config";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 export default function CreateBlog() {
   const [title, setTitle] = useState("");
@@ -74,16 +76,12 @@ export default function CreateBlog() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${apiKey}/blog/createBlog`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.post(`${apiKey}/blog/createBlog`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setLoading(false);
 
@@ -106,7 +104,13 @@ export default function CreateBlog() {
   };
 
   return (
-    <div className="container">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />
@@ -160,13 +164,17 @@ export default function CreateBlog() {
             />
           </div>
           <div className="text-center mt-2">
-            <button className="btn btn-outline-dark btn-md" type="submit" disabled={loading}>
+            <button
+              className="btn btn-outline-dark btn-md"
+              type="submit"
+              disabled={loading}
+            >
               Submit
             </button>
           </div>
         </div>
       </form>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 }

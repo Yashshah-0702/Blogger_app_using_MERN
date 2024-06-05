@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 const UserProfiles = () => {
   const [profiles, setProfiles] = useState([]);
@@ -64,7 +66,13 @@ const UserProfiles = () => {
   return (
     <>
       <h3 className="text-center">User Profiles</h3>
-      <div style={{ overflowX: "auto", height: "380px", margin: "20px" }}>
+      <motion.div
+        variants={bodyMotion}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        style={{ overflowX: "auto", height: "380px", margin: "20px" }}
+      >
         {loading ? ( // Display loading text while fetching data
           <div className="loading-overlay">
             <ClipLoader size={50} color={"black"} loading={loading} />
@@ -106,7 +114,7 @@ const UserProfiles = () => {
           <p>No profiles available.</p>
         )}
         <ToastContainer />
-      </div>
+      </motion.div>
     </>
   );
 };

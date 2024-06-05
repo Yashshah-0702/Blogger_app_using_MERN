@@ -6,6 +6,8 @@ import { apiKey } from "../config/api.config";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import { ClipLoader } from "react-spinners";
+import { motion, AnimatePresence } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 export default function HomePage() {
   const [blogs, setBlogs] = useState([]);
@@ -55,133 +57,136 @@ export default function HomePage() {
     fetchBlogs();
   }, []);
 
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.0 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
+  };
   return (
-    <div className="mx-lg-5">
-      <div className="d-lg-flex justify-content-between align-items-center border-bottom bg-gradient opacity-40">
-        <div className="mx-3">
-          <h1 className="display-6">
-            Welcome To
-            <span> 🅑🅛🅞🅖🅖🅘🅝🅖 🅦🅞🅡🅛🅓</span>
-            {/* 🅱🅻🅾🅶🅶🅸🅽🅶 🆆🅾🆁🅻🅳 */}
-          </h1>
-          <p className="h6">
-            Turn your{" "}
-            <span className="bg-success text-white border-bottom border-dark">
-              🅃🄷🄾🅄🄶🄷🅃🅂
-            </span>{" "}
-            into{" "}
-            <span className="bg-primary text-white border-bottom border-dark">
-              🄱🄻🄾🄶🅂
-            </span>
-          </p>
-        </div>
-        <div className="text-lg-right text-center m-3">
-          <NavLink to="/createBlog" className="btn btn btn-outline-dark btn-lg">
-            Create a Blog 📝
-          </NavLink>{" "}
-        </div>
-      </div>
-      <br></br>
-      <div className="">
-        {loading ? (
-          <div className="loading-overlay">
-            <ClipLoader size={50} color={"black"} loading={loading} />
-          </div> // Display loading text while fetching data
-        ) : blogs && blogs.length > 0 ? (
-          <>
-            <h5
-              className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light mx-1"
-              style={{ fontWeight: "1000" }}
+    <AnimatePresence>
+      <motion.div
+        variants={bodyMotion}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        className="mx-lg-5"
+      >
+        <div className="d-lg-flex justify-content-between align-items-center border-bottom bg-gradient opacity-40">
+          <div className="mx-3">
+            <h1 className="display-6">
+              Welcome To
+              <span> 🅑🅛🅞🅖🅖🅘🅝🅖 🅦🅞🅡🅛🅓</span>
+              {/* 🅱🅻🅾🅶🅶🅸🅽🅶 🆆🅾🆁🅻🅳 */}
+            </h1>
+            <p className="h6">
+              Turn your{" "}
+              <span className="bg-success text-white border-bottom border-dark">
+                🅃🄷🄾🅄🄶🄷🅃🅂
+              </span>{" "}
+              into{" "}
+              <span className="bg-primary text-white border-bottom border-dark">
+                🄱🄻🄾🄶🅂
+              </span>
+            </p>
+          </div>
+          <div className="text-lg-right text-center m-3">
+            <NavLink
+              to="/createBlog"
+              className="btn btn btn-outline-dark btn-lg"
             >
-              LATEST BLOGS
-              {/* 🄻🄰🅃🄴🅂🅃 🄱🄻🄾🄶🅂 */}
-            </h5>
-            <br></br>
-            <div className="">
+              Create a Blog 📝
+            </NavLink>{" "}
+          </div>
+        </div>
+        <br></br>
+        <div className="container">
+          {loading ? (
+            <div className="loading-overlay">
+              <ClipLoader size={50} color={"black"} loading={loading} />
+            </div> // Display loading text while fetching data
+          ) : blogs && blogs.length > 0 ? (
+            <>
+              <h2
+                className="text-center h4 py-2 bg-dark bg-gradient rounded-3 text-light"
+                style={{ fontWeight: "1000" }}
+              >
+                LATEST BLOGS
+                {/* 🄻🄰🅃🄴🅂🅃 🄱🄻🄾🄶🅂 */}
+              </h2>
               {/* <br></br> */}
-              {blogs
-                .slice(-3)
-                .reverse()
-                .map((blog) => (
-                  <div
-                    key={blog._id}
-                    className="row bg-gradient border-bottom rounded-3 bg-body shadow mt-3 m-2"
-                  >
-                    <div className="col-md-4 col-lg-4 col-sm-12 p-lg-5 p-2 ">
-                      <img
-                        src={blog.blogUrl}
-                        alt={blog.title}
-                        className="w-100"
-                        style={{ height: "260px" }}
-                      />
-                    </div>
-                    <div className="col-md-8 col-lg-8 col-sm-12 p-lg-5 p-3">
-                      <h2
-                        className="h4 card-title"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "normal",
-                          height: "3.0em",
-                          fontWeight: "900",
-                          textDecoration: "underline"
-                        }}
-                      >
-                        {blog.title}
-                      </h2>
-                      <h5
-                        className="small card-text text-muted"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "normal",
-                          height: "3.6em",
-                          fontFamily: "fantasy",
-                        }}
-                      >
-                        {blog.content}
-                      </h5>
-                      <br></br>
-                      <p className="card-text">
-                        Author :-
-                        <small className="text-dark text-decoration-underline">
-                          {blog.author.toUpperCase()}
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        Publication Date:-
-                        <small className="text-dark">
-                          {formatDate(blog.Publication_date)}
-                        </small>
-                      </p>
-                      <button
-                        className="btn btn-outline-dark"
-                        onClick={() => handleViewDetails(blog._id)}
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </>
-        ) : (
-          <h1 className="text-center h1 text-muted">No Blogs Found</h1>
-        )}
-        <div id="aboutUs">
-          <AboutUs />
+              <div className="row">
+                {/* <br></br> */}
+                {blogs
+                  .slice(-3)
+                  .reverse()
+                  .map((blog) => (
+                    <motion.div
+                      variants={cardVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      key={blog._id}
+                      whileHover={{ scale: 1.05 }}
+                      className="col-md-6 col-lg-4 mb-4"
+                    >
+                      <div className="card shadow-sm h-100">
+                        <img
+                          src={blog.blogUrl}
+                          alt={blog.title}
+                          className="card-img-top"
+                          style={{ height: "200px", objectFit: "cover" }}
+                        />
+                        <div className="card-body d-flex flex-column">
+                          <h3
+                            className="card-title"
+                            style={{
+                              fontWeight: "bold",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            {blog.title}
+                          </h3>
+                          <p
+                            className="card-text text-muted"
+                            style={{ flex: "1 1 auto" }}
+                          >
+                            {blog.content.slice(0, 100)}...
+                          </p>
+                          <p className="card-text mb-1">
+                            Author:{" "}
+                            <span className="text-dark text-decoration-underline">
+                              {blog.author.toUpperCase()}
+                            </span>
+                          </p>
+                          <p className="card-text">
+                            Publication Date:{" "}
+                            <span className="text-dark">
+                              {formatDate(blog.Publication_date)}
+                            </span>
+                          </p>
+                          <button
+                            className="btn btn-outline-dark mt-auto"
+                            onClick={() => handleViewDetails(blog._id)}
+                          >
+                            View Details
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+              </div>
+            </>
+          ) : (
+            <h1 className="text-center h1 text-muted">No Blogs Found</h1>
+          )}
+          <div id="aboutUs">
+            <AboutUs />
+          </div>
+          <div id="contactUs">
+            <ContactUs />
+          </div>
         </div>
-        <div id="contactUs">
-          <ContactUs />
-        </div>
-      </div>
-      <ToastContainer />
-    </div>
+        <ToastContainer />
+      </motion.div>
+    </AnimatePresence>
   );
 }

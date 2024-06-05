@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 export default function GetEnquiry() {
   const [enquiries, setEnquiries] = useState([]);
@@ -21,7 +23,7 @@ export default function GetEnquiry() {
     }
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`${apiKey}/enquiry/deleteEnquiry`, {
+      await axios.delete(`${apiKey}/enquiry/deleteEnquiry`, {
         data: { _id: id },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -83,8 +85,14 @@ export default function GetEnquiry() {
 
   return (
     <>
-    <h3 className="text-center">User Enquiries</h3>
-      <div style={{ overflowX: "auto", height: "380px", margin: "20px" }}>
+      <h3 className="text-center">User Enquiries</h3>
+      <motion.div
+        variants={bodyMotion}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        style={{ overflowX: "auto", height: "380px", margin: "20px" }}
+      >
         {loading ? (
           <div className="loading-overlay">
             <ClipLoader size={50} color={"black"} loading={loading} />
@@ -129,7 +137,7 @@ export default function GetEnquiry() {
           <p>No enquiries found</p>
         )}
         <ToastContainer />
-      </div>
+      </motion.div>
     </>
   );
 }

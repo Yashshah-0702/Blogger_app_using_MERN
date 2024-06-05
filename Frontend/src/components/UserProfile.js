@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 function UserProfile() {
   const handleDeleteProfile = async () => {
@@ -111,7 +113,12 @@ function UserProfile() {
   }, []); // Empty dependency array ensures this effect runs only once after the component mounts
 
   return (
-    <div>
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+    >
       {userData ? (
         <div className="container">
           <div className="card shadow p-5 mb-4">
@@ -165,7 +172,7 @@ function UserProfile() {
         </div>
       )}
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 }
 

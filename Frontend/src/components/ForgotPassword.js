@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import { apiKey } from "../config/api.config";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +40,13 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="container">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       <br />
       {loading && (
         <div className="loading-overlay">
@@ -74,7 +82,7 @@ const ForgotPassword = () => {
         <br />
       </form>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 

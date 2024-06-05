@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { apiKey } from "../config/api.config";
 import "react-toastify/dist/ReactToastify.css";
 import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 const Signup = () => {
   const [userName, setUserName] = useState("");
@@ -79,7 +81,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container"
+    >
       {loading && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={loading} />
@@ -185,7 +193,7 @@ const Signup = () => {
         </div>
       </form>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 

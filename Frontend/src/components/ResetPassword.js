@@ -4,6 +4,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { apiKey } from "../config/api.config";
 import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import bodyMotion from "../config/bodyMotion.config";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -85,7 +87,13 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <motion.div
+      variants={bodyMotion}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="container mt-5"
+    >
       {isSubmitting && (
         <div className="loading-overlay">
           <ClipLoader size={60} color={"black"} loading={isSubmitting} />
@@ -160,7 +168,7 @@ const ResetPassword = () => {
         </div>
       </form>
       <ToastContainer />
-    </div>
+    </motion.div>
   );
 };
 
