@@ -69,7 +69,7 @@ function BlogDetails() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       {loading ? (
         <div className="loading-overlay">
           <ClipLoader size={50} color={"#000"} loading={loading} />
