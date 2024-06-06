@@ -146,7 +146,8 @@ const BlogList = () => {
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 0.85 }}
+                  whileTap={{ scale: 0.85 }}
                 >
                   <div className="card shadow-sm h-100">
                     <img
