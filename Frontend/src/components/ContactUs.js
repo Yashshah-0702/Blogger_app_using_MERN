@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import "react-toastify/dist/ReactToastify.css";
 import { apiKey } from "../config/api.config";
+import { motion } from "framer-motion";
 
 export default function ContactUs() {
   const [title, setTitle] = useState("");
@@ -46,7 +47,7 @@ export default function ContactUs() {
         toast.success(response.data.message);
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       setLoading(false);
       toast.error("Enquiry failed. Please try again.");
     }
@@ -59,17 +60,24 @@ export default function ContactUs() {
           <ClipLoader size={60} color={"black"} loading={loading} />
         </div>
       )}
-      <div className="bg-dark text-center bg-gradient  text-white rounded-top">
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 1.05 }}
+        className="bg-dark text-center bg-gradient  text-white rounded-top"
+      >
         <h1 className="pt-3 my-2 h5" style={{ fontWeight: "1000" }}>
           CONTACT US
         </h1>
         <p className="mt-5 pb-5">
-          Do you need website planning? Do you need website designing?<br />
+          Do you need website planning? Do you need website designing?
+          <br />
           We can help your web design wishes come true. <br />
-          First, enter your information on this form. We will communicate with you and<br />
+          First, enter your information on this form. We will communicate with
+          you and
+          <br />
           look forward to hearing your ideas.
         </p>
-      </div>
+      </motion.div>
       <br />
       <div className="rounded-3 pb-5 mb-5">
         <form onSubmit={handleSubmit} className="container rounded-3">
@@ -110,7 +118,11 @@ export default function ContactUs() {
             ></textarea>
           </div>
           <div className="text-center">
-            <button className="btn btn-outline-dark" type="submit" disabled={loading}>
+            <button
+              className="btn btn-outline-dark"
+              type="submit"
+              disabled={loading}
+            >
               Submit
             </button>
           </div>
