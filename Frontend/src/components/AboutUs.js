@@ -5,7 +5,7 @@ export default function AboutUs() {
   return (
     <motion.div
       whileHover={{ scale: 0.85 }}
-      whileTap={{ scale: 0.85 }}
+      whileTap={{ scale: 0.70 }}
       className="m-1 bg-body rounded-3 shadow"
     >
       <h1

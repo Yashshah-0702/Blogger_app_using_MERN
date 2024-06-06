@@ -126,7 +126,7 @@ export default function HomePage() {
                       exit="hidden"
                       key={blog._id}
                       whileHover={{ scale: 0.85 }}
-                      whileTap={{ scale: 0.85 }}
+                      whileTap={{ scale: 0.70 }}
                       className="col-md-6 col-lg-4 mb-4"
                     >
                       <div className="card shadow-sm h-100">
