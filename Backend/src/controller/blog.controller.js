@@ -164,7 +164,6 @@ exports.deleteBlog = async (req, res) => {
         serverResponseMessage.ACCESS_DENIED
       );
     }
-    await removeBlog(blog);
     await Blog.findByIdAndDelete(_id);
     return success(
       res,
